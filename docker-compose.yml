@@ -1,12 +1,7 @@
-version: '2'
+version: '3'
 services:
   pro-epargne-api:
-    container_name: pro-epargne-api
-    image: mchekini/pro-epargne-api:1.0
+    image: nginx
+    container_name: nginx-container
     ports:
-      - "8080:8080"
-
-networks:
-  default:
-    external:
-      name: pro-epargne
+      - "80:80"
