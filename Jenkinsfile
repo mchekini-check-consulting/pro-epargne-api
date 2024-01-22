@@ -5,7 +5,7 @@ node("ci-node") {
     }
 
     stage("build"){
-        sh "./mvnw clean install -DskipTests"
+        sh "chmod 700 ./mvnw && ./mvnw clean install -DskipTests"
     }
 
 }
