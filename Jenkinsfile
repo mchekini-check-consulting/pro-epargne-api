@@ -11,4 +11,8 @@ node("ci-node"){
     stage("Build"){
         sh "./mvnw package -DskipTests"
     }
+
+    stage("Build Docker Image"){
+        sh "docker build -t pro-epargne-api ."
+    }
 }
