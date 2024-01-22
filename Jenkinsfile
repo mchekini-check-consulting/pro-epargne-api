@@ -9,11 +9,13 @@ node("ci-node") {
     }
 
     stage("Quality Analyses"){
-        sh "./mvnw clean verify sonar:sonar \\\n" +
+        def status = sh(script: "./mvnw clean verify sonar:sonar \\\n" +
                 "  -Dsonar.projectKey=test \\\n" +
                 "  -Dsonar.projectName='test' \\\n" +
                 "  -Dsonar.host.url=http://15.237.58.46:11001 \\\n" +
-                "  -Dsonar.token=sqp_be97ca1c861440747c6ad3171fed78507dcca365"
+                "  -Dsonar.token=sqp_be97ca1c861440747c6ad3171fed78507dcca365", returnStatus: true)
+
+        println "le resultat = $status"
     }
 
     stage("build"){
