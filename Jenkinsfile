@@ -7,4 +7,8 @@ node("ci-node"){
     stage("Unit Tests"){
         sh "chmod 700 mvnw && ./mvnw test"
     }
+
+    stage("Build"){
+        sh "./mvnw package -DskipTests"
+    }
 }
