@@ -13,6 +13,6 @@ node("ci-node"){
     }
 
     stage("Build Docker Image"){
-        sh "docker build -t pro-epargne-api ."
+        sh "sudo docker build -t pro-epargne-api ."
     }
 }
