@@ -1,6 +1,6 @@
 version: '2'
 services:
-  staff-manager-ui:
+  pro-epargne-api:
     container_name: pro-epargne-api
     image: mchekini/pro-epargne-api:1.0
     ports:

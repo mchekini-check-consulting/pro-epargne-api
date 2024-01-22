@@ -19,10 +19,10 @@ node("ci-node") {
     stage("push image"){
         withCredentials([usernamePassword(credentialsId: 'mchekini', usernameVariable: 'username',
                 passwordVariable: 'password')]) {
-            sh "sudo docker login -u mchekini -p $password"
-            sh "sudo docker tag pro-epargne-api mchekini/pro-epargne-api:1.0"
-            sh "sudo docker push mchekini/pro-epargne-api:1.0"
-            sh "sudo docker rmi mchekini/pro-epargne-api:1.0"
+            sh "sudo docker login -u $username -p $password"
+            sh "sudo docker tag pro-epargne-api $username/pro-epargne-api:1.0"
+            sh "sudo docker push $username/pro-epargne-api:1.0"
+            sh "sudo docker rmi $username/pro-epargne-api:1.0"
             sh "sudo docker rmi pro-epargne-api"
             stash include: 'docker-compose.yml', name: 'utils'
         }
