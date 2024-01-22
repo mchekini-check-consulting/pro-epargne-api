@@ -8,6 +8,14 @@ node("ci-node") {
         sh "chmod 700 mvnw && ./mvnw test"
     }
 
+    stage("Quality Analyses"){
+        sh "./mvnw clean verify sonar:sonar \\\n" +
+                "  -Dsonar.projectKey=pro-epargne-api \\\n" +
+                "  -Dsonar.projectName='pro-epargne-api' \\\n" +
+                "  -Dsonar.host.url=http://13.38.104.75:11001 \\\n" +
+                "  -Dsonar.token=sqp_5216e8997a1c9cc322a13da276d711180c234ea2"
+    }
+
     stage("Build") {
         sh "./mvnw package -DskipTests"
     }
