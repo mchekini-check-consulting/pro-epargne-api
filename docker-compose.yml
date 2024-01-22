@@ -4,7 +4,7 @@ services:
     container_name: pro-epargne-api
     image: mchekini/pro-epargne-api:1.0
     ports:
-      - "8080:80"
+      - "8080:8080"
 
 networks:
   default:
