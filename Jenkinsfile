@@ -8,6 +8,14 @@ node("ci-node") {
         sh "chmod 700 ./mvnw && ./mvnw test"
     }
 
+    stage("Quality Analyses"){
+        sh "./mvnw clean verify sonar:sonar \\\n" +
+                "  -Dsonar.projectKey=test \\\n" +
+                "  -Dsonar.projectName='test' \\\n" +
+                "  -Dsonar.host.url=http://15.237.58.46:11001 \\\n" +
+                "  -Dsonar.token=sqp_be97ca1c861440747c6ad3171fed78507dcca365"
+    }
+
     stage("build"){
         sh "chmod 700 ./mvnw && ./mvnw clean install -DskipTests"
     }
