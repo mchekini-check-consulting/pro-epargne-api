@@ -15,4 +15,14 @@ node("ci-node"){
     stage("Build Docker Image"){
         sh "sudo docker build -t pro-epargne-api ."
     }
+
+    stage("Push Docker Image To Registry"){
+        sh "sudo docker tag pro-epargne-api mchekini/pro-epargne-api:1.0"
+        withCredentials([usernamePassword(credentialsId: 'mchekini', passwordVariable: 'password', usernameVariable: 'username')]) {
+            sh "sudo docker login -u $username -p $password"
+            sh "sudo docker push mchekini/pro-epargne-api:1.0"
+            sh "sudo docker rmi mchekini/pro-epargne-api:1.0"
+            sh "sudo docker rmi pro-epargne-api"
+        }
+    }
 }
