@@ -1,7 +1,7 @@
 node("ci-node") {
 
     stage("Checkout") {
-        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mchekini-check-consulting/pro-epargne-api.git']])
+        checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mchekini-check-consulting/pro-epargne-api.git']])
     }
 
     stage("Unit Tests") {
@@ -12,8 +12,8 @@ node("ci-node") {
         sh "./mvnw clean verify sonar:sonar \\\n" +
                 "  -Dsonar.projectKey=pro-epargne-api \\\n" +
                 "  -Dsonar.projectName='pro-epargne-api' \\\n" +
-                "  -Dsonar.host.url=http://13.38.104.75:11001 \\\n" +
-                "  -Dsonar.token=sqp_5216e8997a1c9cc322a13da276d711180c234ea2"
+                "  -Dsonar.host.url=http://15.236.158.221:11001 \\\n" +
+                "  -Dsonar.token=sqp_b8aeb87695f8c71e1de1cbcd46e313ecfb874e3c"
     }
 
     stage("Build") {
