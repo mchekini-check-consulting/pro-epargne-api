@@ -1,0 +1,12 @@
+version: '3'
+services:
+  pro-epargne-api:
+    image: mchekini/pro-epargne-api:1.0
+    container_name: pro-epargne-api
+    ports:
+      - "8080:8080"
+
+networks:
+  default:
+    external:
+      name: pro-epargne
