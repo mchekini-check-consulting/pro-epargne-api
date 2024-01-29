@@ -1,11 +1,6 @@
-app:
-  name: pro-epargne
-  version: 1.0.0
-
-
 spring:
   datasource:
-    url: jdbc:postgresql://pro-epargne-db:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
