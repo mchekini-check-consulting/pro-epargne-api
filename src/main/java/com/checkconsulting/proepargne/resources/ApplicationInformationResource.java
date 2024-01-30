@@ -22,6 +22,9 @@ public class ApplicationInformationResource {
 
     @GetMapping
     public AppInformation getApplicationInformations() {
+
+        log.info("un appel a ete effectue");
+
         return AppInformation.builder()
                 .name(appInformation.getName())
                 .version(appInformation.getVersion())

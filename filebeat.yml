@@ -149,6 +149,7 @@ setup.template.settings:
 # Starting with Beats version 6.0.0, the dashboards are loaded via the Kibana API.
 # This requires a Kibana endpoint configuration.
 setup.kibana:
+  host: "192.168.1.13:5601"
 
 # Kibana Host
 # Scheme and port can be left out and will be set to the default (http and 5601)
@@ -195,7 +196,7 @@ setup.kibana:
 # ------------------------------ Logstash Output -------------------------------
 output.logstash:
   # The Logstash hosts
-  hosts: ["13.38.71.58:5045"]
+  hosts: ["192.168.1.13:5045"]
   protocol: "udp"
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
