@@ -5,6 +5,15 @@ services:
     container_name: pro-epargne-api
     ports:
       - "8080:8080"
+  pro-epargne-db:
+    image: postgres
+    container_name: pro-epargne-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
 
 networks:
   default:

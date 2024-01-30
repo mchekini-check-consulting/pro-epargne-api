@@ -17,16 +17,18 @@ public class ApplicationInformationResource {
     private final AppInformation appInformation;
 
     public ApplicationInformationResource(AppInformation appInformation) {
+
         this.appInformation = appInformation;
     }
 
 
     @PreAuthorize("hasAuthority('EMPLOYEE')")
     @GetMapping
-    public AppInformation getApplicationInformations(){
+    public AppInformation getApplicationInformations() {
         return AppInformation.builder()
                 .name(appInformation.getName())
                 .version(appInformation.getVersion())
                 .build();
     }
+
 }
