@@ -1,3 +1,10 @@
 app:
   name: pro-epargne
   version: 2.0.0
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://keycloak.check-consulting.net/auth/realms/master
+          jwk-set-uri: https://keycloak.check-consulting.net/auth/realms/master/protocol/openid-connect/certs
