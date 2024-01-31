@@ -3,9 +3,11 @@ app:
   version: 1.0.0
 
 
+
 spring:
   datasource:
-    url: jdbc:postgresql://pro-epargne-db:5432/postgres
+#    url: jdbc:postgresql://pro-epargne-db:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -19,3 +21,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://keycloak.check-consulting.net/auth/realms/master
+          jwk-set-uri: https://keycloak.check-consulting.net/auth/realms/master/protocol/openid-connect/certs
