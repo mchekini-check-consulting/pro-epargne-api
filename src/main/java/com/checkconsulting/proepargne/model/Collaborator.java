@@ -1,9 +1,7 @@
 package com.checkconsulting.proepargne.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +17,7 @@ import java.util.List;
 @Entity
 public class Collaborator {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String lastName;
     private String firstName;

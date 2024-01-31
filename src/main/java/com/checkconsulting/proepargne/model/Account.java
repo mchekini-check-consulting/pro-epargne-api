@@ -19,6 +19,7 @@ import static jakarta.persistence.EnumType.STRING;
 public class Account {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
     private Float amount;
     @Enumerated(STRING)
