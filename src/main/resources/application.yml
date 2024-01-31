@@ -29,3 +29,7 @@ spring:
         jwt:
           issuer-uri: https://keycloak.check-consulting.net/auth/realms/master
           jwk-set-uri: https://keycloak.check-consulting.net/auth/realms/master/protocol/openid-connect/certs
+
+
+server:
+  port: 8082
