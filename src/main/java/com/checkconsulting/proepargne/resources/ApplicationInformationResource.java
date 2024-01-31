@@ -25,6 +25,9 @@ public class ApplicationInformationResource {
     @PreAuthorize("hasAuthority('EMPLOYEE')")
     @GetMapping
     public AppInformation getApplicationInformations() {
+
+        log.info("un appel a ete effectue");
+
         return AppInformation.builder()
                 .name(appInformation.getName())
                 .version(appInformation.getVersion())
