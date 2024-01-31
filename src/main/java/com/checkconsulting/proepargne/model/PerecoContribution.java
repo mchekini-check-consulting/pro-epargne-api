@@ -1,8 +1,10 @@
 package com.checkconsulting.proepargne.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +19,13 @@ import lombok.NoArgsConstructor;
 public class PerecoContribution {
 
     @Id
+    @Column(name = "contract_id")
+    private Long contractId;
     @OneToOne
+    @MapsId
     @JoinColumn(name = "contract_id")
-    private Contract contractId;
+    private Contract contract;
+
     private int rateSimpleContribution;
     private int ceilingSimpleContribution;
     private int rateSeniorityContribution;

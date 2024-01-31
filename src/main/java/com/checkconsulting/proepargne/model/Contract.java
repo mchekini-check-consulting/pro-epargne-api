@@ -31,10 +31,12 @@ public class Contract {
     @OneToOne(mappedBy = "contractId")
     private CompanySignatory companySignatory;
 
-    @OneToOne(mappedBy = "contractId")
+    @OneToOne(mappedBy = "contract")
+    @PrimaryKeyJoinColumn
     private PeeContribution peeContribution;
 
-    @OneToOne(mappedBy = "contractId")
+    @OneToOne(mappedBy = "contract")
+    @PrimaryKeyJoinColumn
     private PerecoContribution perecoContribution;
 
     @OneToMany(mappedBy = "contract")

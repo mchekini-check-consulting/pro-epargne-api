@@ -1,6 +1,5 @@
 package com.checkconsulting.proepargne.model;
 
-
 import com.checkconsulting.proepargne.enums.LegalForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.EnumType.STRING;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +19,8 @@ import static jakarta.persistence.EnumType.STRING;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String siren;
     private String companyName;
     @Enumerated(STRING)
