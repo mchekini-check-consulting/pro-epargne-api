@@ -14,7 +14,6 @@ import java.util.Map;
 public class ResponseTemplate {
 
     private Object data;
-    private String error;
-    private String message;
+    private String errorMessage;
     private Map<String, String> validations;
 }
