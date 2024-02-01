@@ -18,6 +18,7 @@ import static jakarta.persistence.EnumType.STRING;
 public class Company {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String siren;
     private String companyName;
     @Enumerated(STRING)
