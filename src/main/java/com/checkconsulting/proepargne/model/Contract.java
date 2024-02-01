@@ -20,6 +20,7 @@ import static jakarta.persistence.EnumType.STRING;
 public class Contract {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contractId;
     private Integer closingMonth;
     @Enumerated(STRING)
