@@ -1087,3 +1087,78 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2024-01-31 20:10:19.734 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initializing Spring DispatcherServlet 'dispatcherServlet'
 2024-01-31 20:10:19.735 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initializing Servlet 'dispatcherServlet'
 2024-01-31 20:10:19.736 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Completed initialization in 1 ms
+2024-02-01 20:21:25.890 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-01 20:21:25.920 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Shutdown initiated...
+2024-02-01 20:21:25.927 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Shutdown completed.
+2024-02-01 20:21:32.625 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting ProEpargneApplication using Java 17.0.8 with PID 14048 (E:\formation\Formation_Mahdi_Chekini\autre formations\pro-epargne\pro-epargne-api\target\classes started by lenovo in E:\formation\Formation_Mahdi_Chekini\autre formations\pro-epargne\pro-epargne-api)
+2024-02-01 20:21:32.626 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - No active profile set, falling back to 1 default profile: "default"
+2024-02-01 20:21:33.220 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-01 20:21:33.259 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Finished Spring Data repository scanning in 34 ms. Found 1 JPA repository interface.
+2024-02-01 20:21:33.656 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Tomcat initialized with port 8082 (http)
+2024-02-01 20:21:33.664 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initializing ProtocolHandler ["http-nio-8082"]
+2024-02-01 20:21:33.666 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting service [Tomcat]
+2024-02-01 20:21:33.666 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-02-01 20:21:33.715 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initializing Spring embedded WebApplicationContext
+2024-02-01 20:21:33.715 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Root WebApplicationContext: initialization completed in 1063 ms
+2024-02-01 20:21:33.799 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Starting...
+2024-02-01 20:21:33.923 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5dcf0772
+2024-02-01 20:21:33.924 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Start completed.
+2024-02-01 20:21:33.994 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Flyway Community Edition 9.22.3 by Redgate
+2024-02-01 20:21:33.994 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - See release notes here: https://rd.gt/416ObMi
+2024-02-01 20:21:33.994 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - 
+2024-02-01 20:21:34.007 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 16.1)
+2024-02-01 20:21:34.016 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - WARN - Flyway upgrade recommended: PostgreSQL 16.1 is newer than this version of Flyway and support has not been tested. The latest supported version of PostgreSQL is 15.
+2024-02-01 20:21:34.077 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Successfully validated 4 migrations (execution time 00:00.041s)
+2024-02-01 20:21:34.090 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Current version of schema "public": 0.0.4
+2024-02-01 20:21:34.094 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Schema "public" is up to date. No migration necessary.
+2024-02-01 20:21:34.173 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-01 20:21:34.238 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-01 20:21:34.270 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000026: Second-level cache disabled
+2024-02-01 20:21:34.471 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-01 20:21:34.513 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - WARN - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-02-01 20:21:35.279 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-01 20:21:35.327 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-01 20:21:35.432 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - WARN - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-01 20:21:35.577 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@19983dd1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@700b035b, org.springframework.security.web.context.SecurityContextHolderFilter@56ece9c, org.springframework.security.web.header.HeaderWriterFilter@58397dd, org.springframework.web.filter.CorsFilter@786de0a3, org.springframework.security.web.csrf.CsrfFilter@7ecd6861, org.springframework.security.web.authentication.logout.LogoutFilter@7c9b0c16, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@2f143ea, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d3c80bf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2f53e07d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@472dc215, org.springframework.security.web.access.ExceptionTranslationFilter@522221e1, org.springframework.security.web.access.intercept.AuthorizationFilter@21d478f3]
+2024-02-01 20:21:36.105 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting ProtocolHandler ["http-nio-8082"]
+2024-02-01 20:21:36.117 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Tomcat started on port 8082 (http) with context path ''
+2024-02-01 20:21:36.125 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Started ProEpargneApplication in 3.882 seconds (process running for 4.44)
+2024-02-01 20:30:36.272 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-01 20:30:36.275 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Shutdown initiated...
+2024-02-01 20:30:36.278 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Shutdown completed.
+2024-02-01 20:30:41.728 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting ProEpargneApplication using Java 17.0.8 with PID 23280 (E:\formation\Formation_Mahdi_Chekini\autre formations\pro-epargne\pro-epargne-api\target\classes started by lenovo in E:\formation\Formation_Mahdi_Chekini\autre formations\pro-epargne\pro-epargne-api)
+2024-02-01 20:30:41.730 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - No active profile set, falling back to 1 default profile: "default"
+2024-02-01 20:30:42.264 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-01 20:30:42.302 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Finished Spring Data repository scanning in 33 ms. Found 1 JPA repository interface.
+2024-02-01 20:30:42.703 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Tomcat initialized with port 8082 (http)
+2024-02-01 20:30:42.710 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initializing ProtocolHandler ["http-nio-8082"]
+2024-02-01 20:30:42.711 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting service [Tomcat]
+2024-02-01 20:30:42.711 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting Servlet engine: [Apache Tomcat/10.1.17]
+2024-02-01 20:30:42.760 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initializing Spring embedded WebApplicationContext
+2024-02-01 20:30:42.760 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Root WebApplicationContext: initialization completed in 1003 ms
+2024-02-01 20:30:42.844 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Starting...
+2024-02-01 20:30:42.957 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6826b70f
+2024-02-01 20:30:42.959 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Start completed.
+2024-02-01 20:30:43.020 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Flyway Community Edition 9.22.3 by Redgate
+2024-02-01 20:30:43.020 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - See release notes here: https://rd.gt/416ObMi
+2024-02-01 20:30:43.020 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - 
+2024-02-01 20:30:43.030 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Database: jdbc:postgresql://localhost:5432/postgres (PostgreSQL 16.1)
+2024-02-01 20:30:43.039 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - WARN - Flyway upgrade recommended: PostgreSQL 16.1 is newer than this version of Flyway and support has not been tested. The latest supported version of PostgreSQL is 15.
+2024-02-01 20:30:43.065 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Successfully validated 4 migrations (execution time 00:00.019s)
+2024-02-01 20:30:43.092 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Current version of schema "public": 0.0.4
+2024-02-01 20:30:43.095 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Schema "public" is up to date. No migration necessary.
+2024-02-01 20:30:43.166 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-01 20:30:43.245 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-01 20:30:43.279 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000026: Second-level cache disabled
+2024-02-01 20:30:43.468 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-01 20:30:43.504 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - WARN - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-02-01 20:30:44.267 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-01 20:30:44.300 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-01 20:30:44.409 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - WARN - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-01 20:30:44.556 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@472dc215, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1f031994, org.springframework.security.web.context.SecurityContextHolderFilter@2f53e07d, org.springframework.security.web.header.HeaderWriterFilter@56ece9c, org.springframework.web.filter.CorsFilter@37bac0f4, org.springframework.security.web.csrf.CsrfFilter@569d6e0d, org.springframework.security.web.authentication.logout.LogoutFilter@4fb3c670, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@700b035b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@145ce025, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1deca369, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@20c55658, org.springframework.security.web.access.ExceptionTranslationFilter@620260ad, org.springframework.security.web.access.intercept.AuthorizationFilter@3dfe2797]
+2024-02-01 20:30:45.071 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Starting ProtocolHandler ["http-nio-8082"]
+2024-02-01 20:30:45.090 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Tomcat started on port 8082 (http) with context path ''
+2024-02-01 20:30:45.099 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Started ProEpargneApplication in 3.754 seconds (process running for 4.343)
+2024-02-01 20:46:44.405 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-01 20:46:44.406 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Shutdown initiated...
+2024-02-01 20:46:44.409 - user_IS_UNDEFINED pro_epargne - ENV_IS_UNDEFINED - INFO - HikariPool-1 - Shutdown completed.

@@ -35,5 +35,10 @@ public class ApplicationInformationResource {
                 .build();
     }
 
+    @GetMapping("/mySession")
+            public Authentication authentication(Authentication authentication){
+            return authentication;
+
+            }
 
 }
