@@ -1,6 +1,5 @@
 package com.checkconsulting.proepargne.model;
 
-
 import com.checkconsulting.proepargne.enums.Eligibility;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,7 +36,7 @@ public class Contract {
 
     @OneToOne(mappedBy = "contract")
     @PrimaryKeyJoinColumn
-    private PerecoContribution perecoContribution;
+    private PercoContribution perecoContribution;
 
     @OneToMany(mappedBy = "contract")
     private List<Account> accountList;
