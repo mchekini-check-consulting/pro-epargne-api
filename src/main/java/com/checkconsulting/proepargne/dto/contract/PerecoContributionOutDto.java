@@ -1,9 +1,6 @@
-package com.checkconsulting.proepargne.model;
+package com.checkconsulting.proepargne.dto.contract;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import com.checkconsulting.proepargne.enums.ContributionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,13 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-public class PerecoContribution {
+public class PerecoContributionOutDto {
 
-    @Id
-    @OneToOne
-    @JoinColumn(name = "contract_id")
-    private Contract contractId;
+    private ContributionType contributionType;
     private Integer rateSimpleContribution;
     private Integer ceilingSimpleContribution;
     private Integer rateSeniorityContribution;
