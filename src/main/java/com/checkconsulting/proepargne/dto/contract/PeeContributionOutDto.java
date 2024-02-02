@@ -1,25 +1,19 @@
-package com.checkconsulting.proepargne.model;
+package com.checkconsulting.proepargne.dto.contract;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import com.checkconsulting.proepargne.enums.ContributionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-public class PerecoContribution {
+public class PeeContributionOutDto {
 
-    @Id
-    @OneToOne
-    @JoinColumn(name = "contract_id")
-    private Contract contractId;
+    private ContributionType contributionType;
     private Integer rateSimpleContribution;
     private Integer ceilingSimpleContribution;
     private Integer rateSeniorityContribution;
@@ -36,8 +30,7 @@ public class PerecoContribution {
     private Integer ceilingIntervalContributionThird;
     private Integer rateIntervalContributionThird;
     private Integer intervalContributionThird;
-    private Boolean perecoInterestAccepted;
-    private Boolean perecoVoluntaryDepositAccepted;
-    private Boolean perecoProfitSharingAccepted;
-    private Boolean perecoTimeSavingAccountAccepted;
+    private Boolean peeInterestAccepted;
+    private Boolean peeVoluntaryDepositAccepted;
+    private Boolean peeProfitSharingAccepted;
 }

@@ -19,26 +19,27 @@ public class PeeContribution {
     @Id
     @OneToOne
     @JoinColumn(name = "contract_id")
+    
     private Contract contractId;
-    private int rateSimpleContribution;
-    private int ceilingSimpleContribution;
-    private int rateSeniorityContribution;
-    private int ceilingSeniorityContributionLessYear;
-    private int ceilingSeniorityContributionBetween1And3;
-    private int ceilingSeniorityContributionBetween3And5;
-    private int ceilingSeniorityContributionGreater5;
-    private int ceilingIntervalContributionFirst;
-    private int rateIntervalContributionFirst;
-    private int intervalContributionFirst;
-    private int ceilingIntervalContributionSecond;
-    private int rateIntervalContributionSecond;
-    private int intervalContributionSecond;
-    private int ceilingIntervalContributionThird;
-    private int rateIntervalContributionThird;
-    private int intervalContributionThird;
-    private boolean peeInterestAccepted;
-    private boolean peeVoluntaryDepositAccepted;
-    private boolean peeProfitSharingAccepted;
+    private Integer rateSimpleContribution;
+    private Integer ceilingSimpleContribution;
+    private Integer rateSeniorityContribution;
+    private Integer ceilingSeniorityContributionLessYear;
+    private Integer ceilingSeniorityContributionBetween1And3;
+    private Integer ceilingSeniorityContributionBetween3And5;
+    private Integer ceilingSeniorityContributionGreater5;
+    private Integer ceilingIntervalContributionFirst;
+    private Integer rateIntervalContributionFirst;
+    private Integer intervalContributionFirst;
+    private Integer ceilingIntervalContributionSecond;
+    private Integer rateIntervalContributionSecond;
+    private Integer intervalContributionSecond;
+    private Integer ceilingIntervalContributionThird;
+    private Integer rateIntervalContributionThird;
+    private Integer intervalContributionThird;
+    private Boolean peeInterestAccepted;
+    private Boolean peeVoluntaryDepositAccepted;
+    private Boolean peeProfitSharingAccepted;
 
 
 }
