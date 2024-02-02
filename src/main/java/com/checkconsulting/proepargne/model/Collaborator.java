@@ -26,6 +26,7 @@ public class Collaborator {
     private LocalDate birthDate;
     private LocalDate entryDate;
     private Integer grossSalary;
+    private String keycloakId;
 
     @OneToMany(mappedBy = "collaborator")
     private List<Account> accountList;

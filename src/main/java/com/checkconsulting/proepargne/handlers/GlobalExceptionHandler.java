@@ -1,6 +1,5 @@
 package com.checkconsulting.proepargne.handlers;
 
-import com.checkconsulting.proepargne.exception.GlobalException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,7 +24,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<ResponseTemplate>(ResponseTemplate
                 .builder()
-                .errorMessage(ex.getStatusCode().toString())
+                .error(ex.getStatusCode().toString())
                 .validations(errors)
                 .build(), HttpStatus.BAD_REQUEST
         );

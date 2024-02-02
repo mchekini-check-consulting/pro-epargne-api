@@ -1,9 +1,12 @@
 package com.checkconsulting.proepargne.unitTests;
 
+import com.checkconsulting.proepargne.dto.UserDTO;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
 import com.checkconsulting.proepargne.model.Collaborator;
 import com.checkconsulting.proepargne.repository.CollaboratorRepository;
 import com.checkconsulting.proepargne.service.CollaboratorService;
+import com.checkconsulting.proepargne.service.KeycloakUserService;
+import com.checkconsulting.proepargne.utils.KeycloakUserNameHandler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -22,6 +26,9 @@ public class CollaboratorUnitTest {
 
     @Mock
     private CollaboratorRepository collaboratorRepository;
+
+    @Mock
+    private KeycloakUserService keycloakUserService;
 
     @Test
     public void itShouldCreateNewCollaborator() {
@@ -43,12 +50,27 @@ public class CollaboratorUnitTest {
                 .firstName("Doe")
                 .email("john.doe@gmail.com")
                 .gender("homme")
-                .birthDate(LocalDate.of(1980, 9, 3))
-                .entryDate(LocalDate.of(2023, 1, 12))
+                .birthDate(LocalDate.of(1985, 1, 10))
+                .entryDate(LocalDate.of(2021, 4, 5))
+                .grossSalary(2000)
+                .keycloakId("123456")
                 .build();
 
+        String userName = KeycloakUserNameHandler.generateUserName(collaboratorInDto.getFirstName(), collaboratorInDto.getLastName());
+
+        UserDTO userDTO = UserDTO
+                .builder()
+                .emailId(collaboratorInDto.getEmail())
+                .firstname(collaboratorInDto.getFirstName())
+                .lastName(collaboratorInDto.getLastName())
+                .userName(userName).build();
+
         //WHEN
+        when(collaboratorRepository.findByEmail(collaboratorInDto.getEmail())).thenReturn(Optional.empty());
         when(collaboratorRepository.save(collaborator)).thenReturn(collaborator);
+        when(keycloakUserService.addUser(userDTO)).thenReturn(collaborator.getKeycloakId());
+
+//        collaborator.setKeycloakId(keycloakUserService.addUser(userDTO));
 
         Collaborator response = collaboratorService.createCollaborator(collaboratorInDto);
 
