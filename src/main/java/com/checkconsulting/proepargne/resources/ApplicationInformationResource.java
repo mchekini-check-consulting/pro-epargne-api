@@ -1,6 +1,6 @@
 package com.checkconsulting.proepargne.resources;
 
-
+import com.checkconsulting.proepargne.aspect.authentication.Authenticated;
 import com.checkconsulting.proepargne.model.AppInformation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ApplicationInformationResource {
 
-
     private final AppInformation appInformation;
 
     public ApplicationInformationResource(AppInformation appInformation) {
@@ -21,6 +20,7 @@ public class ApplicationInformationResource {
     }
 
     @GetMapping
+    @Authenticated(authenticated = true)
     public AppInformation getApplicationInformations() {
 
         log.info("un appel a ete effectue");

@@ -46,5 +46,4 @@ public class PeeContribution {
     private boolean peeVoluntaryDepositAccepted;
     private boolean peeProfitSharingAccepted;
 
-
 }

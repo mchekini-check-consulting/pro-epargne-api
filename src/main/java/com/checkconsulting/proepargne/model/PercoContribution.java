@@ -52,7 +52,3 @@ public class PercoContribution {
     private Boolean percoProfitSharingAccepted;
     private Boolean percoTimeSavingAccountAccepted;
 }
-
-// 0 - 1000
-// 1000 - 2000
-// 2000 - 3000
