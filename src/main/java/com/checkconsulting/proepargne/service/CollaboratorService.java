@@ -32,14 +32,14 @@ public class CollaboratorService {
         this.collaboratorMapper = collaboratorMapper;
     }
 
-    public List<CollaboratorOutDto> getAll(){
+    public List<CollaboratorOutDto> getAll() {
         List<Collaborator> collaborators = collaboratorRepository.findAll();
         return collaborators.stream().map(collaborator -> collaboratorMapper.mapToCollaboratorOutDto(collaborator)).collect(Collectors.toList());
-//        return collaboratorRepository.findAll();
     }
+
     @Transactional
-    public Collaborator createCollaborator(CollaboratorInDto collaboratorInDto) {
-        log.info("Start persisting new Collaborator {}", collaboratorInDto);
+    public CollaboratorOutDto createCollaborator(CollaboratorInDto collaboratorInDto) {
+        log.info("Start adding new Collaborator {}", collaboratorInDto);
 
         Optional<Collaborator> existedCollaborator = collaboratorRepository.findByEmail(collaboratorInDto.getEmail());
 
@@ -53,6 +53,7 @@ public class CollaboratorService {
                 .userName(userName)
                 .build();
 
+        log.info("Start adding new Collaborator in keycloak");
         String userId = keycloakUserService.addUser(userDTO);
 
         Collaborator collaborator = Collaborator.builder()
@@ -66,11 +67,11 @@ public class CollaboratorService {
                 .keycloakId(userId)
                 .build();
 
-        return collaboratorRepository.save(collaborator);
+        return collaboratorMapper.mapToCollaboratorOutDto(collaboratorRepository.save(collaborator));
     }
 
     @Transactional
-    public Collaborator updateCollaborator(Long id, CollaboratorUpdateDto collaboratorUpdateDto) {
+    public CollaboratorOutDto updateCollaborator(Long id, CollaboratorUpdateDto collaboratorUpdateDto) {
         log.info("Start updating Collaborator with new data : {}", collaboratorUpdateDto);
 
         Optional<Collaborator> existedCollaborator = collaboratorRepository.findByEmail(collaboratorUpdateDto.getEmail());
@@ -97,7 +98,9 @@ public class CollaboratorService {
                 .userName(userName)
                 .build();
 
+        log.info("Start updating Collaborator in keycloak");
         keycloakUserService.updateUser(collaborator.getKeycloakId(), userDTO);
-        return collaboratorRepository.save(collaborator);
+        log.info("Start updating Collaborator in database");
+        return collaboratorMapper.mapToCollaboratorOutDto(collaboratorRepository.save(collaborator));
     }
 }

@@ -30,12 +30,12 @@ public class CollaboratorResource {
     }
 
     @PostMapping
-    public ResponseEntity<Collaborator> createCollaborator(@Valid @RequestBody CollaboratorInDto collaboratorInDto) {
+    public ResponseEntity<CollaboratorOutDto> createCollaborator(@Valid @RequestBody CollaboratorInDto collaboratorInDto) {
         return new ResponseEntity<>(collaboratorService.createCollaborator(collaboratorInDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Collaborator> updateCollaborator(@PathVariable("id") Long id, @Valid @RequestBody CollaboratorUpdateDto collaboratorUpdateDto) {
+    public ResponseEntity<CollaboratorOutDto> updateCollaborator(@PathVariable("id") Long id, @Valid @RequestBody CollaboratorUpdateDto collaboratorUpdateDto) {
         return new ResponseEntity<>(collaboratorService.updateCollaborator(id, collaboratorUpdateDto), HttpStatus.OK);
     }
 }

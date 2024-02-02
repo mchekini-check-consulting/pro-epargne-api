@@ -1,6 +1,7 @@
 package com.checkconsulting.proepargne.integrationTests;
 
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
+import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
 import com.checkconsulting.proepargne.model.Collaborator;
 import com.checkconsulting.proepargne.repository.CollaboratorRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -60,8 +61,9 @@ public class CollaboratorIntegrationTest {
         HttpEntity<CollaboratorInDto> requestEntity = new HttpEntity<>(collaboratorInDto, headers);
 
         //When
-        ResponseEntity<Collaborator> responseEntity = restTemplate.postForEntity("http://localhost:" + port + "/api/v1/collaborator", requestEntity, Collaborator.class);
+        ResponseEntity<CollaboratorOutDto> responseEntity = restTemplate.postForEntity("http://localhost:" + port + "/api/v1/collaborator", requestEntity, CollaboratorOutDto.class);
 
+        log.info("response Entity {}", responseEntity);
         //Then
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertEquals(collaboratorInDto.getEmail(), responseEntity.getBody().getEmail());

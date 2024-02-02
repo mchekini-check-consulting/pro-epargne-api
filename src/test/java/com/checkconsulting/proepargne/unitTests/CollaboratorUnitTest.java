@@ -2,6 +2,8 @@ package com.checkconsulting.proepargne.unitTests;
 
 import com.checkconsulting.proepargne.dto.UserDTO;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
+import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
+import com.checkconsulting.proepargne.mapper.CollaboratorMapper;
 import com.checkconsulting.proepargne.model.Collaborator;
 import com.checkconsulting.proepargne.repository.CollaboratorRepository;
 import com.checkconsulting.proepargne.service.CollaboratorService;
@@ -30,10 +32,24 @@ public class CollaboratorUnitTest {
     @Mock
     private KeycloakUserService keycloakUserService;
 
+    @Mock
+    private CollaboratorMapper collaboratorMapper;
+
     @Test
     public void itShouldCreateNewCollaborator() {
         //GIVEN
         CollaboratorInDto collaboratorInDto = CollaboratorInDto
+                .builder()
+                .lastName("John")
+                .firstName("Doe")
+                .email("john.doe@gmail.com")
+                .gender("homme")
+                .birthDate(LocalDate.of(1985, 1, 10))
+                .entryDate(LocalDate.of(2021, 4, 5))
+                .grossSalary(2000)
+                .build();
+
+        CollaboratorOutDto collaboratorOutDto = CollaboratorOutDto
                 .builder()
                 .lastName("John")
                 .firstName("Doe")
@@ -69,8 +85,9 @@ public class CollaboratorUnitTest {
         when(collaboratorRepository.findByEmail(collaboratorInDto.getEmail())).thenReturn(Optional.empty());
         when(collaboratorRepository.save(collaborator)).thenReturn(collaborator);
         when(keycloakUserService.addUser(userDTO)).thenReturn(collaborator.getKeycloakId());
+        when(collaboratorMapper.mapToCollaboratorOutDto(collaboratorRepository.save(collaborator))).thenReturn(collaboratorOutDto);
 
-        Collaborator response = collaboratorService.createCollaborator(collaboratorInDto);
+        CollaboratorOutDto response = collaboratorService.createCollaborator(collaboratorInDto);
 
         //THEN
         assertEquals(collaboratorInDto.getLastName(), response.getLastName());

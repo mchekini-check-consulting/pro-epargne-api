@@ -16,17 +16,8 @@ import javax.ws.rs.core.Response;
 @Service
 public class KeycloakUserService {
 
-    @Value("${keycloak.serverUrl}")
-    String serverUrl;
     @Value("${keycloak.realm}")
     String realm;
-    @Value("${keycloak.clientId}")
-    String clientId;
-    @Value("${keycloak.userName}")
-    String userName;
-    @Value("${keycloak.password}")
-    String password;
-
 
     final Keycloak keycloak;
 
@@ -49,14 +40,12 @@ public class KeycloakUserService {
 
             String userUri = response.getLocation().toString();
 
-            String userId = userUri.substring(userUri.lastIndexOf('/') + 1);
-
-            return userId;
+            return userUri.substring(userUri.lastIndexOf('/') + 1);
 
         } catch (NotFoundException e) {
-            throw new NotFoundException("Royaume/Client non trouvé sur Keycloak");
+            throw e;
         } catch (ForbiddenException e) {
-            throw new ForbiddenException("Vous n'avez pas le droit de création d'utilisateur sur ce royaume");
+            throw e;
         }
     }
 
@@ -72,6 +61,7 @@ public class KeycloakUserService {
             user.setEmail(userDTO.getEmailId());
 
             realmResource.users().get(userId).update(user);
+            log.info("User updated in keycloak");
 
         } catch (NotFoundException e) {
             throw new NotFoundException("Royaume/Client non trouvé sur Keycloak");
