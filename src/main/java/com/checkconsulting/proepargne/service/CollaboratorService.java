@@ -2,7 +2,9 @@ package com.checkconsulting.proepargne.service;
 
 import com.checkconsulting.proepargne.dto.UserDTO;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
+import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorUpdateDto;
+import com.checkconsulting.proepargne.mapper.CollaboratorMapper;
 import com.checkconsulting.proepargne.model.Collaborator;
 import com.checkconsulting.proepargne.repository.CollaboratorRepository;
 import com.checkconsulting.proepargne.utils.KeycloakUserNameHandler;
@@ -12,7 +14,9 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -20,12 +24,19 @@ public class CollaboratorService {
 
     final CollaboratorRepository collaboratorRepository;
     final KeycloakUserService keycloakUserService;
+    final CollaboratorMapper collaboratorMapper;
 
-    public CollaboratorService(CollaboratorRepository collaboratorRepository, KeycloakUserService keycloakUserService) {
+    public CollaboratorService(CollaboratorRepository collaboratorRepository, KeycloakUserService keycloakUserService, CollaboratorMapper collaboratorMapper) {
         this.collaboratorRepository = collaboratorRepository;
         this.keycloakUserService = keycloakUserService;
+        this.collaboratorMapper = collaboratorMapper;
     }
 
+    public List<CollaboratorOutDto> getAll(){
+        List<Collaborator> collaborators = collaboratorRepository.findAll();
+        return collaborators.stream().map(collaborator -> collaboratorMapper.mapToCollaboratorOutDto(collaborator)).collect(Collectors.toList());
+//        return collaboratorRepository.findAll();
+    }
     @Transactional
     public Collaborator createCollaborator(CollaboratorInDto collaboratorInDto) {
         log.info("Start persisting new Collaborator {}", collaboratorInDto);

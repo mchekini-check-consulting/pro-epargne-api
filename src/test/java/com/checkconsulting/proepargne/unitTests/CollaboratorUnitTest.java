@@ -70,8 +70,6 @@ public class CollaboratorUnitTest {
         when(collaboratorRepository.save(collaborator)).thenReturn(collaborator);
         when(keycloakUserService.addUser(userDTO)).thenReturn(collaborator.getKeycloakId());
 
-//        collaborator.setKeycloakId(keycloakUserService.addUser(userDTO));
-
         Collaborator response = collaboratorService.createCollaborator(collaboratorInDto);
 
         //THEN

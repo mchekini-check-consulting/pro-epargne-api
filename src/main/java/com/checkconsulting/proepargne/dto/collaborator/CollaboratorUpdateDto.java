@@ -29,10 +29,10 @@ public class CollaboratorUpdateDto {
     @NotBlank(message = "Le sexe de l'employé est obligatoire")
     private String gender;
     @NotNull(message = "La date de naissance de l'employé est obligatoire")
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @NotNull(message = "La date d'entrée de l'employé a l'entreprisde est obligatoire")
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate entryDate;
     @NotNull(message = "Le salaire brut est obligatoire")
     @NumberFormat(style = NumberFormat.Style.NUMBER)
