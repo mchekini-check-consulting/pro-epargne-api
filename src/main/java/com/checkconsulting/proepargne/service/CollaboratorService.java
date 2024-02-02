@@ -47,7 +47,7 @@ public class CollaboratorService {
 
         String userName = KeycloakUserNameHandler.generateUserName(collaboratorInDto.getFirstName(), collaboratorInDto.getLastName());
         UserDTO userDTO = UserDTO.builder()
-                .emailId(collaboratorInDto.getEmail())
+                .email(collaboratorInDto.getEmail())
                 .lastName(collaboratorInDto.getLastName())
                 .firstname(collaboratorInDto.getFirstName())
                 .userName(userName)
@@ -92,7 +92,7 @@ public class CollaboratorService {
         String userName = KeycloakUserNameHandler.generateUserName(collaboratorUpdateDto.getFirstName(), collaboratorUpdateDto.getLastName());
 
         UserDTO userDTO = UserDTO.builder()
-                .emailId(collaboratorUpdateDto.getEmail())
+                .email(collaboratorUpdateDto.getEmail())
                 .lastName(collaboratorUpdateDto.getLastName())
                 .firstname(collaboratorUpdateDto.getFirstName())
                 .userName(userName)

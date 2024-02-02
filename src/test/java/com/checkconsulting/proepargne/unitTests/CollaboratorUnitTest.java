@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class CollaboratorUnitTest {
+class CollaboratorUnitTest {
     @InjectMocks
     private CollaboratorService collaboratorService;
 
@@ -76,7 +76,7 @@ public class CollaboratorUnitTest {
 
         UserDTO userDTO = UserDTO
                 .builder()
-                .emailId(collaboratorInDto.getEmail())
+                .email(collaboratorInDto.getEmail())
                 .firstname(collaboratorInDto.getFirstName())
                 .lastName(collaboratorInDto.getLastName())
                 .userName(userName).build();

@@ -19,9 +19,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  profiles:
-    active:
-      - local
 
 
 oauth2:
@@ -31,8 +28,8 @@ oauth2:
       issuer-uri-admin: https://keycloak.check-consulting.net/auth/realms/pro-epargne-admin
 
 keycloak:
-  realm: master
+  realm: pro-epargne-collab
   serverUrl: https://keycloak.check-consulting.net/auth
-  clientId: collab-test
-  userName: admin
-  password: admin
+  clientId: pro-epargne-collab
+  userName: dlyazid
+  password: test

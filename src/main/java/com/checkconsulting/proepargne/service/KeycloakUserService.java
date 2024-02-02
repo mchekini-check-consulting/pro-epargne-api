@@ -4,6 +4,7 @@ import com.checkconsulting.proepargne.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,27 +27,32 @@ public class KeycloakUserService {
     }
 
     public String addUser(UserDTO userDTO) {
-        try {
-            RealmResource realmResource = keycloak.realm(realm);
+        RealmResource realmResource = keycloak.realm(realm);
 
-            UserRepresentation user = new UserRepresentation();
-            user.setUsername(userDTO.getUserName());
-            user.setEmail(userDTO.getEmailId());
-            user.setLastName(userDTO.getLastName());
-            user.setFirstName(userDTO.getFirstname());
-            user.setEnabled(true);
+        UserRepresentation user = new UserRepresentation();
+        user.setUsername(userDTO.getUserName());
+        user.setEmail(userDTO.getEmail());
+        user.setLastName(userDTO.getLastName());
+        user.setFirstName(userDTO.getFirstname());
+        user.setEnabled(true);
 
-            Response response = realmResource.users().create(user);
+        Response response = realmResource.users().create(user);
 
-            String userUri = response.getLocation().toString();
+        realmResource.users().list().stream()
+                .filter(u -> u.getEmail().equals(userDTO.getEmail()))
+                .forEach(u -> {
+                    realmResource.users().get(u.getId()).sendVerifyEmail();
+                    CredentialRepresentation cred = new CredentialRepresentation();
+                    cred.setType(CredentialRepresentation.PASSWORD);
+                    cred.setTemporary(true);
+                    cred.setValue("test");
+                    realmResource.users().get(u.getId()).resetPassword(cred);
+                });
 
-            return userUri.substring(userUri.lastIndexOf('/') + 1);
+        String userUri = response.getLocation().toString();
 
-        } catch (NotFoundException e) {
-            throw e;
-        } catch (ForbiddenException e) {
-            throw e;
-        }
+        return userUri.substring(userUri.lastIndexOf('/') + 1);
+
     }
 
     public void updateUser(String userId, UserDTO userDTO) {
@@ -58,7 +64,7 @@ public class KeycloakUserService {
             user.setUsername(userDTO.getUserName());
             user.setFirstName(userDTO.getFirstname());
             user.setLastName(userDTO.getLastName());
-            user.setEmail(userDTO.getEmailId());
+            user.setEmail(userDTO.getEmail());
 
             realmResource.users().get(userId).update(user);
             log.info("User updated in keycloak");
