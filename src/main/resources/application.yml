@@ -2,7 +2,6 @@ app:
   name: pro_epargne
   version: 1.0.0
 
-
 spring:
   datasource:
     url: jdbc:postgresql://pro-epargne-db:5432/postgres
@@ -19,3 +18,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+oauth2:
+  resource-server:
+    jwt:
+      issuer-uri-collab: https://keycloak.check-consulting.net/auth/realms/pro-epargne-collab
+      issuer-uri-admin: https://keycloak.check-consulting.net/auth/realms/pro-epargne-admin
