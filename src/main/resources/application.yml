@@ -27,3 +27,10 @@ oauth2:
     jwt:
       issuer-uri-collab: https://keycloak.check-consulting.net/auth/realms/pro-epargne-collab
       issuer-uri-admin: https://keycloak.check-consulting.net/auth/realms/pro-epargne-admin
+
+keycloak:
+  realm: master
+  serverUrl: https://keycloak.check-consulting.net/auth
+  clientId: collab-test
+  userName: admin
+  password: admin
