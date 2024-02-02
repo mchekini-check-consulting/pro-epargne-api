@@ -2,6 +2,7 @@ package com.checkconsulting.proepargne.services;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -188,6 +189,16 @@ public class ContractService {
                         contract.setPercoContribution(percoContribution);
                 }
 
+                return mapContractToContractOutDto(contract);
+        }
+
+        public List<ContractOutDTO> listAllContracts() {
+                List<Contract> contracts = this.contractRepository.findAll();
+
+                return contracts.stream().map((c) -> mapContractToContractOutDto(c)).collect(Collectors.toList());
+        }
+
+        private ContractOutDTO mapContractToContractOutDto(Contract contract) {
                 ContractOutDTOBuilder contractOutDtoBuilder = ContractOutDTO.builder()
                                 .closingMonth(contract.getClosingMonth())
                                 .eligibility(contract.getEligibility())
@@ -318,7 +329,6 @@ public class ContractService {
                 }
                 // Include an empty list of accounts
                 contractOutDtoBuilder.accounts(List.of());
-
                 return contractOutDtoBuilder.build();
         }
 }
