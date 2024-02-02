@@ -36,7 +36,7 @@ public class Contract {
 
     @OneToOne(mappedBy = "contract")
     @PrimaryKeyJoinColumn
-    private PercoContribution perecoContribution;
+    private PercoContribution percoContribution;
 
     @OneToMany(mappedBy = "contract")
     private List<Account> accountList;

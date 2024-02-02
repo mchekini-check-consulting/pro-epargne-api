@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.checkconsulting.proepargne.dto.contract.CompanyDTO;
 import com.checkconsulting.proepargne.dto.contract.CompanySignatoryDTO;
 import com.checkconsulting.proepargne.dto.contract.ContractInDTO;
 import com.checkconsulting.proepargne.dto.contract.ContractOutDTO;
+import com.checkconsulting.proepargne.dto.contract.ContractOutDTO.ContractOutDTOBuilder;
 import com.checkconsulting.proepargne.dto.contract.PeeContributionDTO;
 import com.checkconsulting.proepargne.dto.contract.PercoContributionDTO;
 import com.checkconsulting.proepargne.model.Company;
@@ -74,49 +74,50 @@ public class ContractService {
                 contract.setCompanySignatory(companySignatory);
 
                 // Create PeeContribution if it exists
-                if (contractdDto.peeContribution() != null) {
+                if (contractdDto.peeContribution().isPresent()) {
+                        var peeContributionBody = contractdDto.peeContribution().get();
                         PeeContribution peeContribution = new PeeContribution();
                         peeContribution.setRateSimpleContribution(
-                                        contractdDto.peeContribution().getRateSimpleContribution());
+                                        peeContributionBody.getRateSimpleContribution());
                         peeContribution.setCeilingSimpleContribution(
-                                        contractdDto.peeContribution().getCeilingSimpleContribution());
+                                        peeContributionBody.getCeilingSimpleContribution());
                         peeContribution.setRateSeniorityContribution(
-                                        contractdDto.peeContribution().getRateSeniorityContribution());
+                                        peeContributionBody.getRateSeniorityContribution());
                         peeContribution.setCeilingSeniorityContributionLessYear(
-                                        contractdDto.peeContribution().getCeilingSeniorityContributionLessYear());
+                                        peeContributionBody.getCeilingSeniorityContributionLessYear());
                         peeContribution.setCeilingSeniorityContributionBetween1And3(
-                                        contractdDto.peeContribution().getCeilingSeniorityContributionBetween1And3());
+                                        peeContributionBody.getCeilingSeniorityContributionBetween1And3());
                         peeContribution.setCeilingSeniorityContributionBetween3And5(
-                                        contractdDto.peeContribution().getCeilingSeniorityContributionBetween3And5());
+                                        peeContributionBody.getCeilingSeniorityContributionBetween3And5());
                         peeContribution.setCeilingSeniorityContributionGreater5(
-                                        contractdDto.peeContribution().getCeilingSeniorityContributionGreater5());
+                                        peeContributionBody.getCeilingSeniorityContributionGreater5());
                         peeContribution.setCeilingIntervalContributionFirst(
-                                        contractdDto.peeContribution().getCeilingIntervalContributionFirst());
+                                        peeContributionBody.getCeilingIntervalContributionFirst());
                         peeContribution.setRateIntervalContributionFirst(
-                                        contractdDto.peeContribution().getRateIntervalContributionFirst());
+                                        peeContributionBody.getRateIntervalContributionFirst());
                         peeContribution.setIntervalContributionFirst(
-                                        contractdDto.peeContribution().getIntervalContributionFirst());
+                                        peeContributionBody.getIntervalContributionFirst());
                         peeContribution.setCeilingIntervalContributionSecond(
-                                        contractdDto.peeContribution().getCeilingIntervalContributionSecond());
+                                        peeContributionBody.getCeilingIntervalContributionSecond());
                         peeContribution
-                                        .setRateIntervalContributionSecond(contractdDto.peeContribution()
+                                        .setRateIntervalContributionSecond(peeContributionBody
                                                         .getRateIntervalContributionSecond());
                         peeContribution.setIntervalContributionSecond(
-                                        contractdDto.peeContribution().getIntervalContributionSecond());
+                                        peeContributionBody.getIntervalContributionSecond());
                         peeContribution.setCeilingIntervalContributionThird(
-                                        contractdDto.peeContribution().getCeilingIntervalContributionThird());
+                                        peeContributionBody.getCeilingIntervalContributionThird());
                         peeContribution
                                         .setRateIntervalContributionThird(
-                                                        contractdDto.peeContribution()
+                                                        peeContributionBody
                                                                         .getRateIntervalContributionThird());
                         peeContribution.setIntervalContributionThird(
-                                        contractdDto.peeContribution().getIntervalContributionThird());
-                        peeContribution.setPeeInterestAccepted(contractdDto.peeContribution().isPeeInterestAccepted());
+                                        peeContributionBody.getIntervalContributionThird());
+                        peeContribution.setPeeInterestAccepted(peeContributionBody.isPeeInterestAccepted());
                         peeContribution
                                         .setPeeVoluntaryDepositAccepted(
-                                                        contractdDto.peeContribution().isPeeVoluntaryDepositAccepted());
+                                                        peeContributionBody.isPeeVoluntaryDepositAccepted());
                         peeContribution.setPeeProfitSharingAccepted(
-                                        contractdDto.peeContribution().isPeeProfitSharingAccepte());
+                                        peeContributionBody.isPeeProfitSharingAccepte());
                         peeContribution.setContract(contract);
 
                         peeContributionRepository.save(peeContribution);
@@ -125,68 +126,69 @@ public class ContractService {
                 }
 
                 // Create PerecoContribution if it exists
-                if (contractdDto.percoContribution() != null) {
-                        PercoContribution pereContribution = new PercoContribution();
-                        pereContribution.setRateSimpleContribution(
-                                        contractdDto.percoContribution().getRateSimpleContribution());
-                        pereContribution
+                if (contractdDto.percoContribution().isPresent()) {
+                        var peeContributionBody = contractdDto.percoContribution().get();
+                        PercoContribution percoContribution = new PercoContribution();
+                        percoContribution.setRateSimpleContribution(
+                                        peeContributionBody.getRateSimpleContribution());
+                        percoContribution
                                         .setCeilingSimpleContribution(
-                                                        contractdDto.percoContribution()
+                                                        peeContributionBody
                                                                         .getCeilingSimpleContribution());
-                        pereContribution
+                        percoContribution
                                         .setRateSeniorityContribution(
-                                                        contractdDto.percoContribution()
+                                                        peeContributionBody
                                                                         .getRateSeniorityContribution());
-                        pereContribution.setCeilingSeniorityContributionLessYear(
-                                        contractdDto.percoContribution().getCeilingSeniorityContributionLessYear());
-                        pereContribution.setCeilingSeniorityContributionBetween1And3(
-                                        contractdDto.percoContribution()
+                        percoContribution.setCeilingSeniorityContributionLessYear(
+                                        peeContributionBody.getCeilingSeniorityContributionLessYear());
+                        percoContribution.setCeilingSeniorityContributionBetween1And3(
+                                        peeContributionBody
                                                         .getCeilingSeniorityContributionBetween1And3());
-                        pereContribution.setCeilingSeniorityContributionBetween3And5(
-                                        contractdDto.percoContribution()
+                        percoContribution.setCeilingSeniorityContributionBetween3And5(
+                                        peeContributionBody
                                                         .getCeilingSeniorityContributionBetween3And5());
-                        pereContribution.setCeilingSeniorityContributionGreater5(
-                                        contractdDto.percoContribution().getCeilingSeniorityContributionGreater5());
-                        pereContribution.setCeilingIntervalContributionFirst(
-                                        contractdDto.percoContribution().getCeilingIntervalContributionFirst());
-                        pereContribution.setRateIntervalContributionFirst(
-                                        contractdDto.percoContribution().getRateIntervalContributionFirst());
-                        pereContribution
+                        percoContribution.setCeilingSeniorityContributionGreater5(
+                                        peeContributionBody.getCeilingSeniorityContributionGreater5());
+                        percoContribution.setCeilingIntervalContributionFirst(
+                                        peeContributionBody.getCeilingIntervalContributionFirst());
+                        percoContribution.setRateIntervalContributionFirst(
+                                        peeContributionBody.getRateIntervalContributionFirst());
+                        percoContribution
                                         .setIntervalContributionFirst(
-                                                        contractdDto.percoContribution()
+                                                        peeContributionBody
                                                                         .getIntervalContributionFirst());
-                        pereContribution.setCeilingIntervalContributionSecond(
-                                        contractdDto.percoContribution().getCeilingIntervalContributionSecond());
-                        pereContribution.setRateIntervalContributionSecond(
-                                        contractdDto.percoContribution().getRateIntervalContributionSecond());
-                        pereContribution
+                        percoContribution.setCeilingIntervalContributionSecond(
+                                        peeContributionBody.getCeilingIntervalContributionSecond());
+                        percoContribution.setRateIntervalContributionSecond(
+                                        peeContributionBody.getRateIntervalContributionSecond());
+                        percoContribution
                                         .setIntervalContributionSecond(
-                                                        contractdDto.percoContribution()
+                                                        peeContributionBody
                                                                         .getIntervalContributionSecond());
-                        pereContribution.setCeilingIntervalContributionThird(
-                                        contractdDto.percoContribution().getCeilingIntervalContributionThird());
-                        pereContribution.setRateIntervalContributionThird(
-                                        contractdDto.percoContribution().getRateIntervalContributionThird());
-                        pereContribution
+                        percoContribution.setCeilingIntervalContributionThird(
+                                        peeContributionBody.getCeilingIntervalContributionThird());
+                        percoContribution.setRateIntervalContributionThird(
+                                        peeContributionBody.getRateIntervalContributionThird());
+                        percoContribution
                                         .setIntervalContributionThird(
-                                                        contractdDto.percoContribution()
+                                                        peeContributionBody
                                                                         .getIntervalContributionThird());
-                        pereContribution.setPercoInterestAccepted(
-                                        contractdDto.percoContribution().isPercoInterestAccepted());
-                        pereContribution.setPercoVoluntaryDepositAccepted(
-                                        contractdDto.percoContribution().isPercoVoluntaryDepositAccepted());
-                        pereContribution
-                                        .setPercoProfitSharingAccepted(contractdDto.percoContribution()
+                        percoContribution.setPercoInterestAccepted(
+                                        peeContributionBody.isPercoInterestAccepted());
+                        percoContribution.setPercoVoluntaryDepositAccepted(
+                                        peeContributionBody.isPercoVoluntaryDepositAccepted());
+                        percoContribution
+                                        .setPercoProfitSharingAccepted(peeContributionBody
                                                         .isPercoProfitSharingAccepted());
-                        pereContribution.setPercoTimeSavingAccountAccepted(
-                                        contractdDto.percoContribution().isPercoTimeSavingAccountAccepte());
-                        pereContribution.setContract(contract);
+                        percoContribution.setPercoTimeSavingAccountAccepted(
+                                        peeContributionBody.isPercoTimeSavingAccountAccepte());
+                        percoContribution.setContract(contract);
 
-                        perecoContributionRepository.save(pereContribution);
-                        contract.setPerecoContribution(pereContribution);
+                        perecoContributionRepository.save(percoContribution);
+                        contract.setPercoContribution(percoContribution);
                 }
 
-                ContractOutDTO contractOutDto = ContractOutDTO.builder()
+                ContractOutDTOBuilder contractOutDtoBuilder = ContractOutDTO.builder()
                                 .closingMonth(contract.getClosingMonth())
                                 .eligibility(contract.getEligibility())
                                 .company(CompanyDTO.builder()
@@ -211,95 +213,112 @@ public class ContractService {
                                                 .countryOfResidence(
                                                                 contract.getCompanySignatory().getCountryOfResidence())
                                                 .executive(contract.getCompanySignatory().getExecutive())
-                                                .build())
-                                .peeContribution(PeeContributionDTO.builder()
-                                                .rateSimpleContribution(contract.getPeeContribution()
-                                                                .getRateSimpleContribution())
-                                                .ceilingSimpleContribution(contract.getPeeContribution()
-                                                                .getCeilingSimpleContribution())
-                                                .rateSeniorityContribution(contract.getPeeContribution()
-                                                                .getRateSeniorityContribution())
-                                                .ceilingSeniorityContributionLessYear(contract.getPeeContribution()
-                                                                .getCeilingSeniorityContributionLessYear())
-                                                .ceilingSeniorityContributionBetween1And3(contract.getPeeContribution()
-                                                                .getCeilingSeniorityContributionBetween1And3())
-                                                .ceilingSeniorityContributionBetween3And5(contract.getPeeContribution()
-                                                                .getCeilingSeniorityContributionBetween3And5())
-                                                .ceilingSeniorityContributionGreater5(contract.getPeeContribution()
-                                                                .getCeilingSeniorityContributionGreater5())
-                                                .ceilingIntervalContributionFirst(contract.getPeeContribution()
-                                                                .getCeilingIntervalContributionFirst())
-                                                .rateIntervalContributionFirst(contract.getPeeContribution()
-                                                                .getRateIntervalContributionFirst())
-                                                .intervalContributionFirst(contract.getPeeContribution()
-                                                                .getIntervalContributionFirst())
-                                                .ceilingIntervalContributionSecond(contract.getPeeContribution()
-                                                                .getCeilingIntervalContributionSecond())
-                                                .rateIntervalContributionSecond(contract.getPeeContribution()
-                                                                .getRateIntervalContributionSecond())
-                                                .intervalContributionSecond(contract.getPeeContribution()
-                                                                .getIntervalContributionSecond())
-                                                .ceilingIntervalContributionThird(contract.getPeeContribution()
-                                                                .getCeilingIntervalContributionThird())
-                                                .rateIntervalContributionThird(contract.getPeeContribution()
-                                                                .getRateIntervalContributionThird())
-                                                .intervalContributionThird(contract.getPeeContribution()
-                                                                .getIntervalContributionThird())
-                                                .peeInterestAccepted(
-                                                                contract.getPeeContribution().isPeeInterestAccepted())
-                                                .peeVoluntaryDepositAccepted(contract.getPeeContribution()
-                                                                .isPeeVoluntaryDepositAccepted())
-                                                .peeProfitSharingAccepte(contract.getPeeContribution()
-                                                                .isPeeProfitSharingAccepted())
-                                                .build())
-                                .percoContribution(PercoContributionDTO.builder()
-                                                .rateSimpleContribution(contract.getPerecoContribution()
-                                                                .getRateSimpleContribution())
-                                                .ceilingSimpleContribution(contract.getPerecoContribution()
-                                                                .getCeilingSimpleContribution())
-                                                .rateSeniorityContribution(contract.getPerecoContribution()
-                                                                .getRateSeniorityContribution())
-                                                .ceilingSeniorityContributionLessYear(contract.getPerecoContribution()
-                                                                .getCeilingSeniorityContributionLessYear())
-                                                .ceilingSeniorityContributionBetween1And3(contract
-                                                                .getPerecoContribution()
-                                                                .getCeilingSeniorityContributionBetween1And3())
-                                                .ceilingSeniorityContributionBetween3And5(contract
-                                                                .getPerecoContribution()
-                                                                .getCeilingSeniorityContributionBetween3And5())
-                                                .ceilingSeniorityContributionGreater5(contract.getPerecoContribution()
-                                                                .getCeilingSeniorityContributionGreater5())
-                                                .ceilingIntervalContributionFirst(contract.getPerecoContribution()
-                                                                .getCeilingIntervalContributionFirst())
-                                                .rateIntervalContributionFirst(contract.getPerecoContribution()
-                                                                .getRateIntervalContributionFirst())
-                                                .intervalContributionFirst(contract.getPerecoContribution()
-                                                                .getIntervalContributionFirst())
-                                                .ceilingIntervalContributionSecond(contract.getPerecoContribution()
-                                                                .getCeilingIntervalContributionSecond())
-                                                .rateIntervalContributionSecond(contract.getPerecoContribution()
-                                                                .getRateIntervalContributionSecond())
-                                                .intervalContributionSecond(contract.getPerecoContribution()
-                                                                .getIntervalContributionSecond())
-                                                .ceilingIntervalContributionThird(contract.getPerecoContribution()
-                                                                .getCeilingIntervalContributionThird())
-                                                .rateIntervalContributionThird(contract.getPerecoContribution()
-                                                                .getRateIntervalContributionThird())
-                                                .intervalContributionThird(contract.getPerecoContribution()
-                                                                .getIntervalContributionThird())
-                                                .percoInterestAccepted(contract.getPerecoContribution()
-                                                                .getPercoInterestAccepted())
-                                                .percoVoluntaryDepositAccepted(contract.getPerecoContribution()
-                                                                .getPercoVoluntaryDepositAccepted())
-                                                .percoProfitSharingAccepted(contract.getPerecoContribution()
-                                                                .getPercoProfitSharingAccepted())
-                                                .percoTimeSavingAccountAccepte(contract.getPerecoContribution()
-                                                                .getPercoTimeSavingAccountAccepted())
-                                                .build())
-                                .accounts(List.of())
-                                .build();
-                // contractOutDto.get
-                // create the out dto
-                return contractOutDto;
+                                                .build());
+
+                if (contract.getPeeContribution() != null) {
+                        contractOutDtoBuilder
+                                        .peeContribution(PeeContributionDTO.builder()
+                                                        .rateSimpleContribution(contract.getPeeContribution()
+                                                                        .getRateSimpleContribution())
+                                                        .ceilingSimpleContribution(contract.getPeeContribution()
+                                                                        .getCeilingSimpleContribution())
+                                                        .rateSeniorityContribution(contract.getPeeContribution()
+                                                                        .getRateSeniorityContribution())
+                                                        .ceilingSeniorityContributionLessYear(contract
+                                                                        .getPeeContribution()
+                                                                        .getCeilingSeniorityContributionLessYear())
+                                                        .ceilingSeniorityContributionBetween1And3(contract
+                                                                        .getPeeContribution()
+                                                                        .getCeilingSeniorityContributionBetween1And3())
+                                                        .ceilingSeniorityContributionBetween3And5(contract
+                                                                        .getPeeContribution()
+                                                                        .getCeilingSeniorityContributionBetween3And5())
+                                                        .ceilingSeniorityContributionGreater5(contract
+                                                                        .getPeeContribution()
+                                                                        .getCeilingSeniorityContributionGreater5())
+                                                        .ceilingIntervalContributionFirst(contract.getPeeContribution()
+                                                                        .getCeilingIntervalContributionFirst())
+                                                        .rateIntervalContributionFirst(contract.getPeeContribution()
+                                                                        .getRateIntervalContributionFirst())
+                                                        .intervalContributionFirst(contract.getPeeContribution()
+                                                                        .getIntervalContributionFirst())
+                                                        .ceilingIntervalContributionSecond(contract.getPeeContribution()
+                                                                        .getCeilingIntervalContributionSecond())
+                                                        .rateIntervalContributionSecond(contract.getPeeContribution()
+                                                                        .getRateIntervalContributionSecond())
+                                                        .intervalContributionSecond(contract.getPeeContribution()
+                                                                        .getIntervalContributionSecond())
+                                                        .ceilingIntervalContributionThird(contract.getPeeContribution()
+                                                                        .getCeilingIntervalContributionThird())
+                                                        .rateIntervalContributionThird(contract.getPeeContribution()
+                                                                        .getRateIntervalContributionThird())
+                                                        .intervalContributionThird(contract.getPeeContribution()
+                                                                        .getIntervalContributionThird())
+                                                        .peeInterestAccepted(
+                                                                        contract.getPeeContribution()
+                                                                                        .isPeeInterestAccepted())
+                                                        .peeVoluntaryDepositAccepted(contract.getPeeContribution()
+                                                                        .isPeeVoluntaryDepositAccepted())
+                                                        .peeProfitSharingAccepte(contract.getPeeContribution()
+                                                                        .isPeeProfitSharingAccepted())
+                                                        .build());
+                }
+
+                if (contract.getPercoContribution() != null) {
+                        contractOutDtoBuilder
+                                        .percoContribution(PercoContributionDTO.builder()
+                                                        .rateSimpleContribution(contract.getPercoContribution()
+                                                                        .getRateSimpleContribution())
+                                                        .ceilingSimpleContribution(contract.getPercoContribution()
+                                                                        .getCeilingSimpleContribution())
+                                                        .rateSeniorityContribution(contract.getPercoContribution()
+                                                                        .getRateSeniorityContribution())
+                                                        .ceilingSeniorityContributionLessYear(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingSeniorityContributionLessYear())
+                                                        .ceilingSeniorityContributionBetween1And3(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingSeniorityContributionBetween1And3())
+                                                        .ceilingSeniorityContributionBetween3And5(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingSeniorityContributionBetween3And5())
+                                                        .ceilingSeniorityContributionGreater5(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingSeniorityContributionGreater5())
+                                                        .ceilingIntervalContributionFirst(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingIntervalContributionFirst())
+                                                        .rateIntervalContributionFirst(contract.getPercoContribution()
+                                                                        .getRateIntervalContributionFirst())
+                                                        .intervalContributionFirst(contract.getPercoContribution()
+                                                                        .getIntervalContributionFirst())
+                                                        .ceilingIntervalContributionSecond(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingIntervalContributionSecond())
+                                                        .rateIntervalContributionSecond(contract.getPercoContribution()
+                                                                        .getRateIntervalContributionSecond())
+                                                        .intervalContributionSecond(contract.getPercoContribution()
+                                                                        .getIntervalContributionSecond())
+                                                        .ceilingIntervalContributionThird(contract
+                                                                        .getPercoContribution()
+                                                                        .getCeilingIntervalContributionThird())
+                                                        .rateIntervalContributionThird(contract.getPercoContribution()
+                                                                        .getRateIntervalContributionThird())
+                                                        .intervalContributionThird(contract.getPercoContribution()
+                                                                        .getIntervalContributionThird())
+                                                        .percoInterestAccepted(contract.getPercoContribution()
+                                                                        .getPercoInterestAccepted())
+                                                        .percoVoluntaryDepositAccepted(contract.getPercoContribution()
+                                                                        .getPercoVoluntaryDepositAccepted())
+                                                        .percoProfitSharingAccepted(contract.getPercoContribution()
+                                                                        .getPercoProfitSharingAccepted())
+                                                        .percoTimeSavingAccountAccepte(contract.getPercoContribution()
+                                                                        .getPercoTimeSavingAccountAccepted())
+                                                        .build());
+                }
+                // Include an empty list of accounts
+                contractOutDtoBuilder.accounts(List.of());
+
+                return contractOutDtoBuilder.build();
         }
 }

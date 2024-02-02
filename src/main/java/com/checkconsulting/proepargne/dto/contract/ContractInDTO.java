@@ -1,5 +1,7 @@
 package com.checkconsulting.proepargne.dto.contract;
 
+import java.util.Optional;
+
 import com.checkconsulting.proepargne.enums.Eligibility;
 
 public record ContractInDTO(
@@ -7,6 +9,6 @@ public record ContractInDTO(
         Eligibility eligibility,
         CompanyDTO company,
         CompanySignatoryDTO companySignatory,
-        PeeContributionDTO peeContribution,
-        PercoContributionDTO percoContribution) {
+        Optional<PeeContributionDTO> peeContribution,
+        Optional<PercoContributionDTO> percoContribution) {
 }
