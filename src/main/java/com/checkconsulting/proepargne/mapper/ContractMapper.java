@@ -1,13 +1,10 @@
 package com.checkconsulting.proepargne.mapper;
 
 
-import com.checkconsulting.proepargne.dto.contract.ContractOutDto;
-import com.checkconsulting.proepargne.dto.contract.PeeContributionOutDto;
-import com.checkconsulting.proepargne.dto.contract.PerecoContributionOutDto;
+import com.checkconsulting.proepargne.dto.contract.*;
 import com.checkconsulting.proepargne.enums.ContributionType;
-import com.checkconsulting.proepargne.model.Contract;
-import com.checkconsulting.proepargne.model.PeeContribution;
-import com.checkconsulting.proepargne.model.PerecoContribution;
+import com.checkconsulting.proepargne.enums.Eligibility;
+import com.checkconsulting.proepargne.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
@@ -23,21 +20,35 @@ public interface ContractMapper {
     @Mapping(target = "perecoContribution.contributionType", expression = "java(mapContributionPereco(perecoContribution))")
     ContractOutDto mapToContractOutDto(Contract contract);
 
-    PeeContributionOutDto mapToPeeContributionOutDto(PeeContribution peeContribution);
+    PeeContributionDto mapToPeeContributionOutDto(PeeContribution peeContribution);
 
-    PerecoContributionOutDto mapToPerecoContributionOutDto(PerecoContribution peeContribution);
+    PerecoContributionDto mapToPerecoContributionOutDto(PerecoContribution peeContribution);
 
 
-    default ContributionType mapContributionPee(PeeContribution peeContribution){
+    default ContributionType mapContributionPee(PeeContribution peeContribution) {
         if (peeContribution.getRateSimpleContribution() != null) return SIMPLE;
         else if (peeContribution.getRateSeniorityContribution() != null) return SENIORITY;
         return INTERVAL;
     }
 
-    default ContributionType mapContributionPereco(PerecoContribution perecoContribution){
+    default ContributionType mapContributionPereco(PerecoContribution perecoContribution) {
         if (perecoContribution.getRateSimpleContribution() != null) return SIMPLE;
         else if (perecoContribution.getRateSeniorityContribution() != null) return SENIORITY;
         return INTERVAL;
+    }
+
+    Company mapToCompany(CompanyInDto companyInDto);
+
+    @Mapping(target = "eligibility", expression = "java(mapEligibility(contractInDto))")
+    Contract mapToContract(ContractInDto contractInDto);
+
+    CompanySignatory mapToCompanySignatory(CompanySignatoryInDto companySignatory);
+
+    default Eligibility mapEligibility(ContractInDto contractInDto) {
+        if (contractInDto.getEligibility() == 0) return Eligibility.ZERO_MONTH;
+        if (contractInDto.getEligibility() == 1) return Eligibility.ONE_MONTH;
+        if (contractInDto.getEligibility() == 2) return Eligibility.TWO_MONTH;
+        return Eligibility.THREE_MONTH;
     }
 
 

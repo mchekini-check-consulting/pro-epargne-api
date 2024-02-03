@@ -8,8 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.EnumType.STRING;
 
 @Data
@@ -25,19 +27,19 @@ public class Contract {
     private Integer closingMonth;
     @Enumerated(STRING)
     private Eligibility eligibility;
-    @OneToOne(mappedBy = "contractId")
+    @OneToOne(mappedBy = "contract", cascade = PERSIST)
     private Company company;
 
-    @OneToOne(mappedBy = "contractId")
+    @OneToOne(mappedBy = "contract", cascade = PERSIST)
     private CompanySignatory companySignatory;
 
-    @OneToOne(mappedBy = "contractId")
+    @OneToOne(mappedBy = "contract", cascade = PERSIST)
     private PeeContribution peeContribution;
 
-    @OneToOne(mappedBy = "contractId")
+    @OneToOne(mappedBy = "contract", cascade = PERSIST)
     private PerecoContribution perecoContribution;
 
-    @OneToMany(mappedBy = "contract")
-    private List<Account> accountList;
+    @OneToMany(mappedBy = "contract", cascade = PERSIST)
+    private List<Account> accountList = new ArrayList<>();
 
 }

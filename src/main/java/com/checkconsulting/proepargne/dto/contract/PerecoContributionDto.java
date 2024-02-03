@@ -6,12 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PeeContributionOutDto {
+public class PerecoContributionDto {
 
     private ContributionType contributionType;
     private Integer rateSimpleContribution;
@@ -30,7 +29,8 @@ public class PeeContributionOutDto {
     private Integer ceilingIntervalContributionThird;
     private Integer rateIntervalContributionThird;
     private Integer intervalContributionThird;
-    private Boolean peeInterestAccepted;
-    private Boolean peeVoluntaryDepositAccepted;
-    private Boolean peeProfitSharingAccepted;
+    private Boolean perecoInterestAccepted;
+    private Boolean perecoVoluntaryDepositAccepted;
+    private Boolean perecoProfitSharingAccepted;
+    private Boolean perecoTimeSavingAccountAccepted;
 }

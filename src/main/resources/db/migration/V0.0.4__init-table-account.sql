@@ -23,3 +23,6 @@ create table if not exists transaction
     constraint fk_transaction_account FOREIGN KEY (account_id) references account (account_id)
 
 );
+
+
+ALTER TABLE account ALTER COLUMN contract_id DROP NOT NULL;

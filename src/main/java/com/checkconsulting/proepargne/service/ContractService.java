@@ -1,10 +1,12 @@
 package com.checkconsulting.proepargne.service;
 
+import com.checkconsulting.proepargne.dto.contract.ContractInDto;
 import com.checkconsulting.proepargne.dto.contract.ContractOutDto;
 import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.mapper.ContractMapper;
 import com.checkconsulting.proepargne.model.Contract;
 import com.checkconsulting.proepargne.repository.ContractRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,21 @@ public class ContractService {
 
         return contractMapper.mapToContractOutDto(contract);
 
+    }
+
+    @Transactional
+    public Contract createContract(ContractInDto contractInDto) {
+
+        Contract contract = contractMapper.mapToContract(contractInDto);
+        contractRepository.saveAndFlush(contract);
+
+
+        contract.getCompany().setContract(contract);
+        contract.getCompanySignatory().setContract(contract);
+        contract.getPeeContribution().setContract(contract);
+        contract.getPerecoContribution().setContract(contract);
+
+        return contract;
     }
 }
 

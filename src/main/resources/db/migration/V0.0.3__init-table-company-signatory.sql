@@ -14,3 +14,6 @@ create table if not exists company_signatory
 
     constraint fk_contract_company_signatory FOREIGN KEY (contract_id) references contract (contract_id)
 );
+
+
+ALTER TABLE company_signatory ALTER COLUMN contract_id DROP NOT NULL;

@@ -1,9 +1,6 @@
 package com.checkconsulting.proepargne.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +14,9 @@ import lombok.NoArgsConstructor;
 public class PerecoContribution {
 
     @Id
-    @OneToOne
-    @JoinColumn(name = "contract_id")
-    private Contract contractId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private Integer rateSimpleContribution;
     private Integer ceilingSimpleContribution;
     private Integer rateSeniorityContribution;
@@ -40,4 +37,8 @@ public class PerecoContribution {
     private Boolean perecoVoluntaryDepositAccepted;
     private Boolean perecoProfitSharingAccepted;
     private Boolean perecoTimeSavingAccountAccepted;
+
+    @OneToOne
+    @JoinColumn(name = "contract_id")
+    private Contract contract;
 }
