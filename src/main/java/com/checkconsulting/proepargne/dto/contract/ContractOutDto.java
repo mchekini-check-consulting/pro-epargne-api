@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class ContractOutDto {
 
     private Long contractId;
-    private PeeContributionOutDto peeContribution;
-    private PerecoContributionOutDto perecoContribution;
+    private PeeContributionDto peeContribution;
+    private PerecoContributionDto perecoContribution;
 }

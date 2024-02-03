@@ -9,6 +9,7 @@ create table if not exists contract
 
 create table if not exists pee_contribution
 (
+    id                                          bigserial primary key,
     rate_simple_contribution                    int,
     ceiling_simple_contribution                 int,
     rate_seniority_contribution                 int,
@@ -31,10 +32,12 @@ create table if not exists pee_contribution
     contract_id                                 bigserial,
 
     constraint fk_contract_pee_contribution FOREIGN KEY (contract_id) references contract (contract_id)
+
 );
 
 create table if not exists pereco_contribution
 (
+    id                                          bigserial primary key,
     rate_simple_contribution                    int,
     ceiling_simple_contribution                 int,
     rate_seniority_contribution                 int,
@@ -76,3 +79,12 @@ create table if not exists company
 
     constraint fk_contract_company FOREIGN KEY (contract_id) references contract (contract_id)
 );
+
+
+
+ALTER TABLE company
+    ALTER COLUMN contract_id DROP NOT NULL;
+ALTER TABLE pereco_contribution
+    ALTER COLUMN contract_id DROP NOT NULL;
+ALTER TABLE pee_contribution
+    ALTER COLUMN contract_id DROP NOT NULL;
