@@ -10,7 +10,6 @@ import com.checkconsulting.proepargne.services.ContractService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("api/v1/contract")
@@ -24,11 +23,4 @@ public class ContractResource {
         var contractRes = contractService.createContract(contract);
         return ResponseEntity.ok().body(contractRes);
     }
-
-    @GetMapping()
-    public ResponseEntity<?> getAllContacts() {
-        var contacts = contractService.listAllContracts();
-        return ResponseEntity.ok().body(contacts);
-    }
-
 }
