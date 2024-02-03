@@ -21,9 +21,15 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 
-
 oauth2:
   resource-server:
     jwt:
       issuer-uri-collab: https://keycloak.check-consulting.net/auth/realms/pro-epargne-collab
       issuer-uri-admin: https://keycloak.check-consulting.net/auth/realms/pro-epargne-admin
+
+keycloak:
+  realm: pro-epargne-collab
+  serverUrl: https://keycloak.check-consulting.net/auth
+  clientId: pro-epargne-collab
+  userName: dlyazid
+  password: test
