@@ -39,7 +39,7 @@ public class KeycloakUserService {
         Response response = realmResource.users().create(user);
 
         realmResource.users().list().stream()
-                .filter(u -> u.getEmail().equals(userDTO.getEmail()))
+                .filter(u -> String.valueOf(u.getEmail()).equals(userDTO.getEmail()))
                 .forEach(u -> {
                     realmResource.users().get(u.getId()).sendVerifyEmail();
                     CredentialRepresentation cred = new CredentialRepresentation();
