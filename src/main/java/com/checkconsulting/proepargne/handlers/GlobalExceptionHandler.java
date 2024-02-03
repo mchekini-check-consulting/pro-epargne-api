@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<ResponseTemplate>(ResponseTemplate
                 .builder()
-                .errorMessage(ex.getStatusCode().toString())
+                .errorMessage(ex.getMessage())
                 .validations(errors)
                 .build(), HttpStatus.BAD_REQUEST
         );

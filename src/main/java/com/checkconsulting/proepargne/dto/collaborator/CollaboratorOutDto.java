@@ -1,23 +1,17 @@
-package com.checkconsulting.proepargne.model;
+package com.checkconsulting.proepargne.dto.collaborator;
 
-
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-public class Collaborator {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CollaboratorOutDto {
     private Long id;
     private String lastName;
     private String firstName;
@@ -26,8 +20,4 @@ public class Collaborator {
     private LocalDate birthDate;
     private LocalDate entryDate;
     private Integer grossSalary;
-    private String keycloakId;
-
-    @OneToMany(mappedBy = "collaborator")
-    private List<Account> accountList;
 }
