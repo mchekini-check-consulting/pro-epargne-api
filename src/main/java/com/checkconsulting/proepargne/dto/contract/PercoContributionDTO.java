@@ -25,6 +25,6 @@ public class PercoContributionDTO {
         private boolean percoInterestAccepted;
         private boolean percoVoluntaryDepositAccepted;
         private boolean percoProfitSharingAccepted;
-        private boolean percoTimeSavingAccountAccepte;
+        private boolean percoTimeSavingAccountAccepted;
 
 }

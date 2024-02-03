@@ -24,5 +24,5 @@ public class PeeContributionDTO {
         private int intervalContributionThird;
         private boolean peeInterestAccepted;
         private boolean peeVoluntaryDepositAccepted;
-        private boolean peeProfitSharingAccepte;
+        private boolean peeProfitSharingAccepted;
 }

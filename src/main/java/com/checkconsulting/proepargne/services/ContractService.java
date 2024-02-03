@@ -49,6 +49,7 @@ public class ContractService {
                 // Create Company
                 Company company = new Company();
                 company.setSiret(contractdDto.company().getSiret());
+                company.setSiren(contractdDto.company().getSiren());
                 company.setBusinessActivity(contractdDto.company().getBusinessActivity());
                 company.setBusinessAddress(contractdDto.company().getBusinessAddress());
                 company.setLegalForm(contractdDto.company().getLegalForm());
@@ -118,7 +119,7 @@ public class ContractService {
                                         .setPeeVoluntaryDepositAccepted(
                                                         peeContributionBody.isPeeVoluntaryDepositAccepted());
                         peeContribution.setPeeProfitSharingAccepted(
-                                        peeContributionBody.isPeeProfitSharingAccepte());
+                                        peeContributionBody.isPeeProfitSharingAccepted());
                         peeContribution.setContract(contract);
 
                         peeContributionRepository.save(peeContribution);
@@ -182,7 +183,7 @@ public class ContractService {
                                         .setPercoProfitSharingAccepted(peeContributionBody
                                                         .isPercoProfitSharingAccepted());
                         percoContribution.setPercoTimeSavingAccountAccepted(
-                                        peeContributionBody.isPercoTimeSavingAccountAccepte());
+                                        peeContributionBody.isPercoTimeSavingAccountAccepted());
                         percoContribution.setContract(contract);
 
                         perecoContributionRepository.save(percoContribution);
@@ -270,7 +271,7 @@ public class ContractService {
                                                                                         .isPeeInterestAccepted())
                                                         .peeVoluntaryDepositAccepted(contract.getPeeContribution()
                                                                         .isPeeVoluntaryDepositAccepted())
-                                                        .peeProfitSharingAccepte(contract.getPeeContribution()
+                                                        .peeProfitSharingAccepted(contract.getPeeContribution()
                                                                         .isPeeProfitSharingAccepted())
                                                         .build());
                 }
@@ -323,7 +324,7 @@ public class ContractService {
                                                                         .getPercoVoluntaryDepositAccepted())
                                                         .percoProfitSharingAccepted(contract.getPercoContribution()
                                                                         .getPercoProfitSharingAccepted())
-                                                        .percoTimeSavingAccountAccepte(contract.getPercoContribution()
+                                                        .percoTimeSavingAccountAccepted(contract.getPercoContribution()
                                                                         .getPercoTimeSavingAccountAccepted())
                                                         .build());
                 }

@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.EnumType.STRING;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,8 +17,6 @@ import org.hibernate.annotations.GenericGenerator;
 public class Company {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String siren;
     private String companyName;
     @Enumerated(STRING)
