@@ -196,7 +196,7 @@ setup.kibana:
 # ------------------------------ Logstash Output -------------------------------
 output.logstash:
   # The Logstash hosts
-  hosts: ["192.168.1.13:5045"]
+  hosts: ["13.38.71.58:5045"]
   protocol: "udp"
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
