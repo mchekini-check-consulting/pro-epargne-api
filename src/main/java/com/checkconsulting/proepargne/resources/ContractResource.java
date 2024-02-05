@@ -1,12 +1,15 @@
 package com.checkconsulting.proepargne.resources;
 
-
 import com.checkconsulting.proepargne.dto.contract.ContractInDto;
 import com.checkconsulting.proepargne.dto.contract.ContractOutDto;
 import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.model.Contract;
 import com.checkconsulting.proepargne.service.ContractService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,15 +31,20 @@ public class ContractResource {
     }
 
     @PostMapping
-    public ResponseEntity createContract(@RequestBody ContractInDto contractInDto) {
-        Contract contract = contractService.createContract(contractInDto);
+    public ResponseEntity<?> createContract(@RequestBody @Valid ContractInDto contractInDto,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+        }
+        return ResponseEntity.ok().build();
+        // Contract contract = contractService.createContract(contractInDto);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(contract.getContractId())
-                .toUri();
+        // URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        // .path("/{id}")
+        // .buildAndExpand(contract.getContractId())
+        // .toUri();
 
-        return ResponseEntity.created(location).build();
+        // return ResponseEntity.created(location).build();
     }
 
 }
