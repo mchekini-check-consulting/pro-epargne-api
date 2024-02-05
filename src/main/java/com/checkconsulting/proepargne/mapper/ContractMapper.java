@@ -1,6 +1,5 @@
 package com.checkconsulting.proepargne.mapper;
 
-
 import com.checkconsulting.proepargne.dto.contract.*;
 import com.checkconsulting.proepargne.enums.ContributionType;
 import com.checkconsulting.proepargne.enums.Eligibility;
@@ -15,7 +14,6 @@ import static com.checkconsulting.proepargne.enums.ContributionType.*;
 @Mapper(componentModel = "spring")
 public interface ContractMapper {
 
-
     @Mapping(target = "peeContribution.contributionType", expression = "java(mapContributionPee(peeContribution))")
     @Mapping(target = "perecoContribution.contributionType", expression = "java(mapContributionPereco(perecoContribution))")
     ContractOutDto mapToContractOutDto(Contract contract);
@@ -24,16 +22,19 @@ public interface ContractMapper {
 
     PerecoContributionDto mapToPerecoContributionOutDto(PerecoContribution peeContribution);
 
-
     default ContributionType mapContributionPee(PeeContribution peeContribution) {
-        if (peeContribution.getRateSimpleContribution() != null) return SIMPLE;
-        else if (peeContribution.getRateSeniorityContribution() != null) return SENIORITY;
+        if (peeContribution.getRateSimpleContribution() != null)
+            return SIMPLE;
+        else if (peeContribution.getRateSeniorityContribution() != null)
+            return SENIORITY;
         return INTERVAL;
     }
 
     default ContributionType mapContributionPereco(PerecoContribution perecoContribution) {
-        if (perecoContribution.getRateSimpleContribution() != null) return SIMPLE;
-        else if (perecoContribution.getRateSeniorityContribution() != null) return SENIORITY;
+        if (perecoContribution.getRateSimpleContribution() != null)
+            return SIMPLE;
+        else if (perecoContribution.getRateSeniorityContribution() != null)
+            return SENIORITY;
         return INTERVAL;
     }
 
@@ -45,11 +46,13 @@ public interface ContractMapper {
     CompanySignatory mapToCompanySignatory(CompanySignatoryInDto companySignatory);
 
     default Eligibility mapEligibility(ContractInDto contractInDto) {
-        if (contractInDto.getEligibility() == 0) return Eligibility.ZERO_MONTH;
-        if (contractInDto.getEligibility() == 1) return Eligibility.ONE_MONTH;
-        if (contractInDto.getEligibility() == 2) return Eligibility.TWO_MONTH;
+        if (contractInDto.getEligibility() == 0)
+            return Eligibility.ZERO_MONTH;
+        if (contractInDto.getEligibility() == 1)
+            return Eligibility.ONE_MONTH;
+        if (contractInDto.getEligibility() == 2)
+            return Eligibility.TWO_MONTH;
         return Eligibility.THREE_MONTH;
     }
-
 
 }
