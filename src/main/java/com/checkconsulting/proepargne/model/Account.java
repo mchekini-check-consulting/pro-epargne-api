@@ -1,6 +1,8 @@
 package com.checkconsulting.proepargne.model;
 
+import com.checkconsulting.proepargne.enums.ManagementMode;
 import com.checkconsulting.proepargne.enums.PlanType;
+import com.checkconsulting.proepargne.enums.RiskLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,4 +37,10 @@ public class Account {
 
     @OneToMany(mappedBy = "account")
     private List<Transaction> transactionList;
+
+    @Enumerated(STRING)
+    private RiskLevel riskLevel;
+    @Enumerated(STRING)
+    private ManagementMode managementMode;
+
 }

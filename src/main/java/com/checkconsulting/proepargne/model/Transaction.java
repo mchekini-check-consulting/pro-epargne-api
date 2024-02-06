@@ -20,6 +20,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
     private Float amount;
+    private Float previousAmount;
+    private Float nextAmount;
+
     @Enumerated(STRING)
     private OperationType type;
     private String comment;
