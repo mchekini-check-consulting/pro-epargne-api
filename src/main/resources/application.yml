@@ -4,10 +4,20 @@ app:
 
 
 spring:
+  config:
+    import: vault://
+  cloud:
+    vault:
+      uri: https://vault.check-consulting.net
+      kv:
+        enabled: true
+        backend: kv
+        application-name: pro_epargne
+        default-context: pro_epargne
   datasource:
     url: jdbc:postgresql://pro-epargne-db:5432/postgres
     username: postgres
-    password: postgres
+    password: ${db-password}
     driverClassName: org.postgresql.Driver
 
   jpa:
@@ -32,4 +42,4 @@ keycloak:
   serverUrl: https://keycloak.check-consulting.net/auth
   clientId: pro-epargne-collab
   userName: dlyazid
-  password: test
+  password: ${keycloak-collab-password}
