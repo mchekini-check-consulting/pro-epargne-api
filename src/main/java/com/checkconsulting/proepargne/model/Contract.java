@@ -25,6 +25,8 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contractId;
     private Integer closingMonth;
+    private String companyAdminId;
+
     @Enumerated(STRING)
     private Eligibility eligibility;
     @OneToOne(mappedBy = "contract", cascade = PERSIST)
