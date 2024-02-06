@@ -3,7 +3,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
-    driverClassName: org.postgresql.Driver
 
 server:
   port: 8082
+
+keycloak:
+    password: test

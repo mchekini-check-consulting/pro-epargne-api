@@ -22,7 +22,7 @@ public class ApplicationInformationResource {
     }
 
     @GetMapping
-    @Authenticated(authenticated = true)
+    @Authenticated(authenticated = false)
     public AppInformation getApplicationInformations() {
 
         return AppInformation.builder()
