@@ -17,6 +17,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
+    volumes:
+      - ./pg-conf/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
 
 networks:
   default:
