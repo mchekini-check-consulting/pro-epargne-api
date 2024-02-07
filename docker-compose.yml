@@ -11,12 +11,22 @@ services:
   pro-epargne-db:
     image: postgres
     container_name: pro-epargne-db
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
+  pgweb:
+    container_name: pro-epargne-pg-web
+    restart: always
+    image: sosedoff/pgweb
+    ports:
+      - "8090:8081"
+    links:
+      - pro-epargne-db:pro-epargne-db
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@pro-epargne-db:5432/postgres?sslmode=disable
+    depends_on:
+      - pro-epargne-db
 
 networks:
   default:
