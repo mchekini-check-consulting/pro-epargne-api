@@ -4,8 +4,9 @@ import com.checkconsulting.proepargne.dto.UserDTO;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorUpdateDto;
+import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.mapper.CollaboratorMapper;
-import com.checkconsulting.proepargne.model.Collaborator;
+import com.checkconsulting.proepargne.model.*;
 import com.checkconsulting.proepargne.repository.CollaboratorRepository;
 import com.checkconsulting.proepargne.utils.KeycloakUserNameHandler;
 import jakarta.persistence.EntityExistsException;
@@ -25,20 +26,24 @@ public class CollaboratorService {
     final CollaboratorRepository collaboratorRepository;
     final KeycloakUserService keycloakUserService;
     final CollaboratorMapper collaboratorMapper;
+    final AccountService accountService;
+    final ContractService contractService;
 
-    public CollaboratorService(CollaboratorRepository collaboratorRepository, KeycloakUserService keycloakUserService, CollaboratorMapper collaboratorMapper) {
+    public CollaboratorService(CollaboratorRepository collaboratorRepository, KeycloakUserService keycloakUserService, CollaboratorMapper collaboratorMapper, AccountService accountService, ContractService contractService) {
         this.collaboratorRepository = collaboratorRepository;
         this.keycloakUserService = keycloakUserService;
         this.collaboratorMapper = collaboratorMapper;
+        this.accountService = accountService;
+        this.contractService = contractService;
     }
 
     public List<CollaboratorOutDto> getAll() {
         List<Collaborator> collaborators = collaboratorRepository.findAll();
-        return collaborators.stream().map(collaborator -> collaboratorMapper.mapToCollaboratorOutDto(collaborator)).collect(Collectors.toList());
+        return collaborators.stream().map(collaboratorMapper::mapToCollaboratorOutDto).collect(Collectors.toList());
     }
 
     @Transactional
-    public CollaboratorOutDto createCollaborator(CollaboratorInDto collaboratorInDto) {
+    public CollaboratorOutDto createCollaborator(CollaboratorInDto collaboratorInDto) throws GlobalException,EntityExistsException{
         log.info("Start adding new Collaborator {}", collaboratorInDto);
 
         Optional<Collaborator> existedCollaborator = collaboratorRepository.findByEmail(collaboratorInDto.getEmail());
@@ -66,6 +71,13 @@ public class CollaboratorService {
                 .entryDate(collaboratorInDto.getEntryDate())
                 .keycloakId(userId)
                 .build();
+
+        log.info("Saving new Collaborator to database and flushing changes");
+        collaboratorRepository.saveAndFlush(collaborator);
+
+
+        Long contractId = 1L;
+        accountService.createCollaboratorAccounts(contractId,collaborator);
 
         return collaboratorMapper.mapToCollaboratorOutDto(collaboratorRepository.save(collaborator));
     }

@@ -30,6 +30,10 @@ public class ContractService {
         return contractMapper.mapToContractOutDto(contract);
 
     }
+    public Contract getContractById(Long contractId) throws GlobalException{
+        return contractRepository.findById(contractId)
+                .orElseThrow(() -> new GlobalException("Contract not found with id: " + contractId, HttpStatus.NOT_FOUND));
+    }
 
     @Transactional
     public Contract createContract(ContractInDto contractInDto) {
