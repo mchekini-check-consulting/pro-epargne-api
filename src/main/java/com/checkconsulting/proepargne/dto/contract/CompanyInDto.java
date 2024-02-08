@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class CompanyInDto {
     @Size(max = 13, min = 13, message = "siren must exactly 13 chars")
     private String siren;
-    @NotBlank
+    @NotBlank()
     private String companyName;
-    @EnumValidator(enumClass = LegalForm.class)
+    @EnumValidator(enumClass = LegalForm.class, anyOf = {})
     private LegalForm legalForm;
     @Size(max = 13, min = 13, message = "siret must exactly 13 chars")
     private String siret;

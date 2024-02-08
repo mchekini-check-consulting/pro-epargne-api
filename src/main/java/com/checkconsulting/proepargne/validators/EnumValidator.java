@@ -10,15 +10,16 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = CustomEnumValidator.class)
-@Target({ ElementType.METHOD, ElementType.FIELD })
+@Constraint(validatedBy = { CustomEnumValidator.class })
+@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR,
+        ElementType.PARAMETER, ElementType.TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EnumValidator {
-    final String name = "asdasd";
-
     Class<? extends Enum<?>> enumClass();
 
-    String message() default "Invalid enum value";
+    String[] anyOf();
+
+    String message() default "must be any of enum";
 
     Class<?>[] groups() default {};
 

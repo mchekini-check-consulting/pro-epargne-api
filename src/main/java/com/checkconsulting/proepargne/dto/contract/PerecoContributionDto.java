@@ -3,6 +3,7 @@ package com.checkconsulting.proepargne.dto.contract;
 import com.checkconsulting.proepargne.enums.ContributionType;
 import com.checkconsulting.proepargne.validators.EnumValidator;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PerecoContributionDto {
 
-    @EnumValidator(enumClass = ContributionType.class)
+    // @EnumValidator(enumClass = ContributionType.class)
     private ContributionType contributionType;
     @PositiveOrZero
     private Integer rateSimpleContribution;
@@ -49,12 +50,12 @@ public class PerecoContributionDto {
     private Integer rateIntervalContributionThird;
     @PositiveOrZero
     private Integer intervalContributionThird;
-    @PositiveOrZero
+    @NotNull
     private Boolean perecoInterestAccepted;
-    @PositiveOrZero
+    @NotNull
     private Boolean perecoVoluntaryDepositAccepted;
-    @PositiveOrZero
+    @NotNull
     private Boolean perecoProfitSharingAccepted;
-    @PositiveOrZero
+    @NotNull
     private Boolean perecoTimeSavingAccountAccepted;
 }

@@ -31,11 +31,12 @@ public class ContractResource {
     }
 
     @PostMapping
-    public ResponseEntity<?> createContract(@RequestBody @Valid ContractInDto contractInDto,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
-        }
+    public ResponseEntity<?> createContract(@RequestBody @Valid ContractInDto contractInDto) {
+
+        // if (result.hasErrors()) {
+        // System.out.println("hereherehere");
+        // return ResponseEntity.badRequest().body(result.getAllErrors());
+        // }
         return ResponseEntity.ok().build();
         // Contract contract = contractService.createContract(contractInDto);
 
