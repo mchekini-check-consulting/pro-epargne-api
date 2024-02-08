@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.PERSIST;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +30,6 @@ public class Collaborator {
     private Integer grossSalary;
     private String keycloakId;
 
-    @OneToMany(mappedBy = "collaborator")
+    @OneToMany(mappedBy = "collaborator",cascade = PERSIST)
     private List<Account> accountList;
 }

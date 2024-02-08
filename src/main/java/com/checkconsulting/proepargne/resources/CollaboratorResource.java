@@ -3,7 +3,7 @@ package com.checkconsulting.proepargne.resources;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorUpdateDto;
-import com.checkconsulting.proepargne.model.Collaborator;
+import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.service.CollaboratorService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @Slf4j
@@ -30,7 +29,7 @@ public class CollaboratorResource {
     }
 
     @PostMapping
-    public ResponseEntity<CollaboratorOutDto> createCollaborator(@Valid @RequestBody CollaboratorInDto collaboratorInDto) {
+    public ResponseEntity<CollaboratorOutDto> createCollaborator(@Valid @RequestBody CollaboratorInDto collaboratorInDto) throws GlobalException{
         return new ResponseEntity<>(collaboratorService.createCollaborator(collaboratorInDto), HttpStatus.CREATED);
     }
 
