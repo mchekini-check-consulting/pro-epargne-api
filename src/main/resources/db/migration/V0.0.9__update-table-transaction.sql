@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS transaction
+    ADD COLUMN created_at TIMESTAMP;

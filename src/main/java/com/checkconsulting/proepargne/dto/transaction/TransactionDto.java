@@ -1,4 +1,4 @@
-package com.checkconsulting.proepargne.dto;
+package com.checkconsulting.proepargne.dto.transaction;
 
 import com.checkconsulting.proepargne.enums.OperationType;
 import com.checkconsulting.proepargne.enums.PlanType;
