@@ -3,7 +3,7 @@ package com.checkconsulting.proepargne.dto.contract;
 import com.checkconsulting.proepargne.enums.ContributionType;
 import com.checkconsulting.proepargne.validators.EnumValidator;
 
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PeeContributionDto {
 
-    @EnumValidator(enumClass = ContributionType.class)
+    // @EnumValidator(enumClass = ContributionType.class)
     private ContributionType contributionType;
     @PositiveOrZero
     private Integer rateSimpleContribution;
@@ -50,10 +50,10 @@ public class PeeContributionDto {
     private Integer rateIntervalContributionThird;
     @PositiveOrZero
     private Integer intervalContributionThird;
-    @PositiveOrZero
+    @NotNull
     private Boolean peeInterestAccepted;
-    @PositiveOrZero
+    @NotNull
     private Boolean peeVoluntaryDepositAccepted;
-    @PositiveOrZero
+    @NotNull
     private Boolean peeProfitSharingAccepted;
 }

@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class CustomEnumValidator implements ConstraintValidator<EnumValidator, String> {
+public class CustomEnumValidator implements ConstraintValidator<EnumValidator, Enum<?>> {
     private List<String> acceptedValues;
 
     @Override
@@ -17,7 +17,7 @@ public class CustomEnumValidator implements ConstraintValidator<EnumValidator, S
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(Enum<?> value, ConstraintValidatorContext context) {
         if (value == null) {
             return true;
         }

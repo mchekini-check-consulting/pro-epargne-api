@@ -2,12 +2,15 @@ app:
   name: pro_epargne
   version: 1.0.0
 
-
 spring:
-  config:
-    import: vault://
+  profiles:
+    active:
+      - local
+  # config:
+  #   import: vault://
   cloud:
     vault:
+      enabled: false
       uri: https://vault.check-consulting.net
       kv:
         enabled: true

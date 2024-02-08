@@ -19,11 +19,11 @@ public class ContractInDto {
     Integer eligibility;
     @Valid
     CompanyInDto company;
-    @Valid
-    CompanySignatoryInDto companySignatory;
-    @Valid
-    PeeContributionDto peeContribution;
-    @Valid
-    PerecoContributionDto perecoContribution;
+    // @Valid
+    // CompanySignatoryInDto companySignatory;
+    // @Valid
+    // PeeContributionDto peeContribution;
+    // @Valid
+    // PerecoContributionDto perecoContribution;
 
 }

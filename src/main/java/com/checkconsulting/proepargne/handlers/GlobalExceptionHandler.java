@@ -32,10 +32,8 @@ public class GlobalExceptionHandler {
                 .builder()
                 .errorMessage(ex.getMessage())
                 .validations(errors)
-                .build(), HttpStatus.BAD_REQUEST
-        );
+                .build(), HttpStatus.BAD_REQUEST);
     }
-
 
     @ExceptionHandler(GlobalException.class)
     public ResponseEntity<ResponseTemplate> handleException(GlobalException ex) {
@@ -47,10 +45,8 @@ public class GlobalExceptionHandler {
                 .builder()
                 .errorMessage(ex.getMessage())
                 .validations(null)
-                .build(), ex.getStatus()
-        );
+                .build(), ex.getStatus());
     }
-
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseTemplate> handleException(Exception ex) {
@@ -62,8 +58,7 @@ public class GlobalExceptionHandler {
                 .builder()
                 .errorMessage(ex.getMessage())
                 .validations(null)
-                .build(), HttpStatus.INTERNAL_SERVER_ERROR
-        );
+                .build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
