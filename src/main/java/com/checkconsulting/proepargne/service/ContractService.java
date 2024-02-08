@@ -29,6 +29,10 @@ public class ContractService {
         return contractMapper.mapToContractOutDto(contract);
 
     }
+    public Contract getContractByAdminId() throws GlobalException{
+        return contractRepository.findByCompanyAdminId(user.getKeycloakId())
+                .orElseThrow(() -> new GlobalException("Contract not found with id: " + user.getKeycloakId(), HttpStatus.NOT_FOUND));
+    }
 
     @Transactional
     public Contract createContract(ContractInDto contractInDto) {
