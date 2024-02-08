@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ProEpargneApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="SPRING_CLOUD_VAULT_TOKEN" value="hvs.R7wee7Ml2bUUaKMdRREQuSS7" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.checkconsulting.proepargne.ProEpargneApplication" />
+    <module name="pro-epargne" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.checkconsulting.proepargne.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
