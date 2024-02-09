@@ -74,6 +74,7 @@ public class SecurityFilter implements Filter {
             user.setUserName(jwt.getClaims().get("preferred_username").toString());
             user.setEmail(jwt.getClaims().get("email").toString());
             user.setAuthenticated(true);
+            user.setKeycloakId(jwt.getClaims().get("sub").toString());
             List<String> roles = (List<String>) ((LinkedTreeMap) jwt.getClaims().get("realm_access")).get("roles");
             roles = roles.stream()
                     .map(String::toString)
