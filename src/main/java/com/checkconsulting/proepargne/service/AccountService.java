@@ -72,4 +72,10 @@ public class AccountService {
         return collaborator.getAccountList().stream().map((obj) -> accoutMapper.mapAccountToAccountOutDto(obj))
                 .collect(Collectors.toList());
     }
+
+    public List<AccountOutDto> getCollaboratorAccounts() {
+        Collaborator collaborator = collaboratorRepository.findByEmail(user.getEmail()).get();
+        return collaborator.getAccountList().stream().map((obj) -> accoutMapper.mapAccountToAccountOutDto(obj))
+                .collect(Collectors.toList());
+    }
 }
