@@ -51,14 +51,15 @@ public class TransactionService {
 
 
     public Page<TransactionOutDto> getTransactions(int page, int size, String filter) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc(filter)));
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
 
         Collaborator collaborator = collaboratorRepository.findByEmail(user.getEmail()).get();
         List<Account> accounts = accountRepository.findAccountByCollaboratorId(collaborator.getId());
 
         log.info("all Transactions related to user {}, in his {} account(s)", user.getUserName(), accounts.size());
 
-        return transactionRepository.findAllByAccountIn(accounts, pageable).map(transactionMapper::mapToTransactionDto);
+        return transactionRepository.findAllByAccountIn(accounts, pageable,filter).map(transactionMapper::mapToTransactionDto);
 
     }
 

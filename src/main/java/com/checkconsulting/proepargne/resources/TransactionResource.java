@@ -44,7 +44,7 @@ public class TransactionResource {
     public Page<TransactionOutDto> getTransactions(
             @RequestParam(defaultValue = "0", required = false) int page,
             @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(defaultValue = "createdAt", required = false) String filter
+            @RequestParam(defaultValue = "", required = false) String filter
     ) {
         return transactionService.getTransactions(page, size, filter);
     }
