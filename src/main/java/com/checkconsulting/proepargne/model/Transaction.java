@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 import static jakarta.persistence.EnumType.STRING;
 
 @Data
@@ -22,6 +24,7 @@ public class Transaction {
     private Float amount;
     private Float previousAmount;
     private Float nextAmount;
+    private LocalDateTime createdAt;
 
     @Enumerated(STRING)
     private OperationType type;

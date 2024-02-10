@@ -3,5 +3,9 @@ package com.checkconsulting.proepargne.enums;
 public enum OperationType {
 
     DEPOSIT,
-    WITHDRAWAL
+    WITHDRAWAL,
+    INTEREST,
+    PARTICIPATION,
+    CONTRIBUTION,
+    TIME
 }
