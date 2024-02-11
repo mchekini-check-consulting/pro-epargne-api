@@ -59,6 +59,7 @@ public class AccountService {
                     .amount(0F)
                     .contract(contract)
                     .collaborator(collaborator)
+                    .managementMode(ManagementMode.FREE)
                     .build();
             accounts.add(perecoAccount);
         }
@@ -71,6 +72,7 @@ public class AccountService {
                     .amount(0F)
                     .contract(contract)
                     .collaborator(collaborator)
+                    .managementMode(ManagementMode.FREE)
                     .build();
             accounts.add(peeAccount);
         }
