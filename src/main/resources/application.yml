@@ -29,7 +29,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
+  batch:
+    jdbc:
+      initialize-schema: always
 
 oauth2:
   resource-server:
