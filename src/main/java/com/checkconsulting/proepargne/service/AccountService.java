@@ -33,7 +33,7 @@ public class AccountService {
     private final CollaboratorRepository collaboratorRepository;
 
     public AccountService(AccountRepository accountRepository, ContractService contractService,
-                          AccountMapper accountMapper, User user, CollaboratorRepository collaboratorRepository) {
+            AccountMapper accountMapper, User user, CollaboratorRepository collaboratorRepository) {
         this.contractService = contractService;
         this.accountMapper = accountMapper;
         this.user = user;
@@ -44,7 +44,8 @@ public class AccountService {
 
     public List<AccountOutDto> getCollaboratorAccounts() throws GlobalException {
         Collaborator collaborator = this.collaboratorRepository.findByEmail(user.getEmail())
-                .orElseThrow(() -> new GlobalException("L'utilisateur connecte n'est pas enregistre en base de données", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new GlobalException("L'utilisateur connecte n'est pas enregistre en base de données",
+                        HttpStatus.NOT_FOUND));
         return collaborator.getAccountList().stream().map(accountMapper::mapToAccountOutDto)
                 .toList();
     }
@@ -79,13 +80,11 @@ public class AccountService {
             accounts.add(perecoAccount);
         }
 
-
         log.info("Saving new Collaborator Accounts to database");
         return accountRepository.saveAll(accounts);
     }
 
-
-    //TODO DO refactoring
+    // TODO DO refactoring
     public List<AccountOutDto> updateAccount(AccountUpdateDto payload) {
         Collaborator collaborator = collaboratorRepository.findByEmail(user.getEmail()).get();
 
