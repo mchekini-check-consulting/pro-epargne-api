@@ -1,7 +1,6 @@
 package com.checkconsulting.proepargne.dto.contract;
 
 import com.checkconsulting.proepargne.enums.ContributionType;
-import com.checkconsulting.proepargne.validators.EnumValidator;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -15,8 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PeeContributionDto {
-
-    // @EnumValidator(enumClass = ContributionType.class)
     private ContributionType contributionType;
     @PositiveOrZero
     private Integer rateSimpleContribution;

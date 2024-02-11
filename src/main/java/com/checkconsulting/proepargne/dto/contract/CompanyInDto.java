@@ -18,8 +18,8 @@ public class CompanyInDto {
     private String siren;
     @NotBlank()
     private String companyName;
-    @EnumValidator(enumClass = LegalForm.class, anyOf = {})
-    private LegalForm legalForm;
+    @EnumValidator(enumClass = LegalForm.class)
+    private String legalForm;
     @Size(max = 13, min = 13, message = "siret must exactly 13 chars")
     private String siret;
     @NotBlank

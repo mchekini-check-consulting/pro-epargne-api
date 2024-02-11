@@ -32,20 +32,14 @@ public class ContractResource {
 
     @PostMapping
     public ResponseEntity<?> createContract(@RequestBody @Valid ContractInDto contractInDto) {
+        Contract contract = contractService.createContract(contractInDto);
 
-        // if (result.hasErrors()) {
-        // System.out.println("hereherehere");
-        // return ResponseEntity.badRequest().body(result.getAllErrors());
-        // }
-        return ResponseEntity.ok().build();
-        // Contract contract = contractService.createContract(contractInDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(contract.getContractId())
+                .toUri();
 
-        // URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-        // .path("/{id}")
-        // .buildAndExpand(contract.getContractId())
-        // .toUri();
-
-        // return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).build();
     }
 
 }

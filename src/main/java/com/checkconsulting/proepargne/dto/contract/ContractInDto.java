@@ -3,6 +3,7 @@ package com.checkconsulting.proepargne.dto.contract;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,12 +19,16 @@ public class ContractInDto {
     @Max(3)
     Integer eligibility;
     @Valid
+    @NotNull
     CompanyInDto company;
-    // @Valid
-    // CompanySignatoryInDto companySignatory;
-    // @Valid
-    // PeeContributionDto peeContribution;
-    // @Valid
-    // PerecoContributionDto perecoContribution;
+    @Valid
+    @NotNull
+    CompanySignatoryInDto companySignatory;
+    @Valid
+    @NotNull
+    PeeContributionDto peeContribution;
+    @Valid
+    @NotNull
+    PerecoContributionDto perecoContribution;
 
 }
