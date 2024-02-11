@@ -6,6 +6,7 @@ import com.checkconsulting.proepargne.dto.transaction.TransactionOutDto;
 import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.model.Transaction;
 import com.checkconsulting.proepargne.service.TransactionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("api/v1/transaction")
+@Slf4j
 public class TransactionResource {
 
     final TransactionService transactionService;
@@ -46,6 +48,7 @@ public class TransactionResource {
             @RequestParam(defaultValue = "10", required = false) int size,
             @RequestParam(defaultValue = "", required = false) String filter
     ) {
+        log.info("getTransactions called with page: {}, size: {}, filter: {}", page, size, filter);
         return transactionService.getTransactions(page, size, filter);
     }
 }
