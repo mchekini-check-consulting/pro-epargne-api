@@ -1,6 +1,7 @@
 package com.checkconsulting.proepargne.handlers;
 
 import com.checkconsulting.proepargne.exception.GlobalException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,12 +12,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseTemplate> handleValidationErrors(MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
+
+        log.info("Exception message: {}", ex.getMessage());
+        log.info("Exception stackTrace: {}", ex.getStackTrace());
 
         ex.getBindingResult()
                 .getFieldErrors()
@@ -35,6 +40,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(GlobalException.class)
     public ResponseEntity<ResponseTemplate> handleException(GlobalException ex) {
 
+        log.error("Exception message: {}", ex.getMessage());
+        log.error("Exception stackTrace: {}", ex.getStackTrace());
+
         return new ResponseEntity<>(ResponseTemplate
                 .builder()
                 .errorMessage(ex.getMessage())
@@ -46,6 +54,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseTemplate> handleException(Exception ex) {
+
+        log.error("Validation message: {}", ex.getMessage());
+        log.error("Validation stackTrace: {}", ex.getStackTrace());
 
         return new ResponseEntity<>(ResponseTemplate
                 .builder()
