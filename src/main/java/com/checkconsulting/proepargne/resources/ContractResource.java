@@ -6,10 +6,7 @@ import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.model.Contract;
 import com.checkconsulting.proepargne.service.ContractService;
 
-import jakarta.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
