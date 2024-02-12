@@ -19,14 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.checkconsulting.proepargne.utils.Constants.ASSET_FILE_PATH;
+
+
 @Slf4j
 @Configuration
 public class AssetReader {
 
 
     private final ApplicationContext context;
-
-    private final static String ASSET_FILE_PATH = "classpath:files/historique-assets.csv";
 
     public AssetReader(ApplicationContext context) {
         this.context = context;
@@ -41,13 +42,13 @@ public class AssetReader {
         Resource resource = resolver.getResource(ASSET_FILE_PATH);
 
 
-        return new FlatFileItemReaderBuilder()
+        return new FlatFileItemReaderBuilder<>()
                 .name("assetItemReader")
                 .resource(resource)
                 .linesToSkip(1)
                 .delimited()
                 .delimiter(";")
-                .names(generateColumnNames(resource).toArray(new String[0]))
+                .names(generateColumnNames().toArray(new String[0]))
                 .fieldSetMapper(fieldSet -> {
 
                     AssetDto assetDto = new AssetDto();
@@ -55,7 +56,7 @@ public class AssetReader {
                     List<String> columns;
 
                     try {
-                        columns = generateColumnNames(resource);
+                        columns = generateColumnNames();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -74,7 +75,7 @@ public class AssetReader {
                 .build();
     }
 
-    public List<String> generateColumnNames(Resource res) throws IOException {
+    public List<String> generateColumnNames() throws IOException {
 
         Resource csv = context.getResource(ASSET_FILE_PATH);
         InputStream inputStream = csv.getInputStream();

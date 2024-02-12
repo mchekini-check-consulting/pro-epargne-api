@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class AssetWriter implements ItemWriter {
+public class AssetWriter implements ItemWriter<Asset> {
 
     final AssetRepository assetRepository;
     final AssetYearRepository assetYearRepository;
@@ -22,15 +22,17 @@ public class AssetWriter implements ItemWriter {
     }
 
     @Override
-    public void write(Chunk chunk) throws Exception {
+    public void write(Chunk<? extends Asset> chunk) {
         log.info("Job Writer for assets file started with data : {}", chunk.getItems());
 
-        for (Object asset : chunk.getItems()) {
-            Asset createdAsset = assetRepository.saveAndFlush((Asset) asset);
-            for (AssetYear assetYear : ((Asset) asset).getAssetYearsData()) {
+        for (Asset asset : chunk.getItems()) {
+            Asset createdAsset = assetRepository.saveAndFlush(asset);
+            for (AssetYear assetYear : asset.getAssetYearsData()) {
                 assetYear.setAsset(createdAsset);
                 assetYearRepository.save(assetYear);
             }
         }
     }
+
+
 }

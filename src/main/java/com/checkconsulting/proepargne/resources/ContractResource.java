@@ -28,7 +28,7 @@ public class ContractResource {
     }
 
     @PostMapping
-    public ResponseEntity createContract(@RequestBody ContractInDto contractInDto) {
+    public ResponseEntity<?> createContract(@RequestBody ContractInDto contractInDto) {
         Contract contract = contractService.createContract(contractInDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

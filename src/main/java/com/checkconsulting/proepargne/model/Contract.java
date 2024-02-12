@@ -26,6 +26,8 @@ public class Contract {
     private Long contractId;
     private Integer closingMonth;
     private String companyAdminId;
+    private boolean peeEnabled;
+    private boolean perecoEnabled;
 
     @Enumerated(STRING)
     private Eligibility eligibility;
