@@ -24,4 +24,5 @@ public class User {
     private List<String> roles;
     private boolean authenticated;
     private String email;
+    private String keycloakId;
 }

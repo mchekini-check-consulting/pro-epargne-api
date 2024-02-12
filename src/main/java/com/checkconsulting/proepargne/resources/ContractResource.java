@@ -22,13 +22,13 @@ public class ContractResource {
         this.contractService = contractService;
     }
 
-    @GetMapping("/{contractId}")
-    public ContractOutDto getContract(@PathVariable Long contractId) throws GlobalException {
-        return contractService.getContract(contractId);
+    @GetMapping
+    public ContractOutDto getContract() throws GlobalException {
+        return contractService.getContract();
     }
 
     @PostMapping
-    public ResponseEntity createContract(@RequestBody ContractInDto contractInDto) {
+    public ResponseEntity<?> createContract(@RequestBody ContractInDto contractInDto) {
         Contract contract = contractService.createContract(contractInDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
