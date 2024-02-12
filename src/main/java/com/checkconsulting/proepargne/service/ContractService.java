@@ -69,7 +69,7 @@ public class ContractService {
         if (perecoContribution.getRateSimpleContribution() != null ||
                 perecoContribution.getRateSeniorityContribution() != null ||
                 perecoContribution.getRateIntervalContributionFirst() != null)
-            contract.setPeeEnabled(true);
+            contract.setPerecoEnabled(true);
     }
 }
 
