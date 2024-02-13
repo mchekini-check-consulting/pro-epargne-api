@@ -49,7 +49,7 @@ public class ContractService {
         contract.getCompany().setContract(contract);
         contract.getCompanySignatory().setContract(contract);
         contract.getPerecoContribution().setContract(contract);
-        contract.getPerecoContribution().setContract(contract);
+        contract.getPeeContribution().setContract(contract);
 
         PeeContributionDto peeContribution = contractInDto.getPeeContribution();
         PerecoContributionDto perecoContribution = contractInDto.getPerecoContribution();
@@ -69,7 +69,7 @@ public class ContractService {
         if (perecoContribution.getRateSimpleContribution() != null ||
                 perecoContribution.getRateSeniorityContribution() != null ||
                 perecoContribution.getRateIntervalContributionFirst() != null)
-            contract.setPeeEnabled(true);
+            contract.setPerecoEnabled(true);
     }
 }
 
