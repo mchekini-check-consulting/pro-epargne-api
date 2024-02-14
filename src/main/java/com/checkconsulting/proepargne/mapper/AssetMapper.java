@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +19,9 @@ public interface AssetMapper {
     @Mapping(target = "assetYearsData", expression = "java(mapPreviousYears(assetDto.getAssetYearsData()))")
     Asset mapAssetDtoToAsset(AssetDto assetDto);
 
+    @Mapping(target = "assetYearsData", expression = "java(mapPreviousYears(asset.getAssetYearsData()))")
+    AssetDto mapAssetToAssetDto(Asset asset);
+
     default List<AssetYear> mapPreviousYears(Map<String, Float> previousYearsData) {
         return previousYearsData.entrySet().stream()
                 .map(entry -> AssetYear.builder()
@@ -25,5 +29,11 @@ public interface AssetMapper {
                         .value(entry.getValue())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    default Map<String, Float> mapPreviousYears(List<AssetYear> assetYearsData) {
+        Map<String, Float> assetYearsMap = new HashMap<>();
+        assetYearsData.stream().forEach(assetYear -> assetYearsMap.put(Integer.toString(assetYear.getYear()), assetYear.getValue()));
+        return assetYearsMap;
     }
 }
