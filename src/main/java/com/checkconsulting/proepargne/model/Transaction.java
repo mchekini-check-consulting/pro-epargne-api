@@ -1,6 +1,7 @@
 package com.checkconsulting.proepargne.model;
 
 import com.checkconsulting.proepargne.enums.OperationType;
+import com.checkconsulting.proepargne.enums.PlanType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,9 @@ public class Transaction {
     @Enumerated(STRING)
     private OperationType type;
     private String comment;
+
+    @Enumerated(STRING)
+    private PlanType planType;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
