@@ -65,8 +65,10 @@ public class AssetReader {
                     assetDto.setIsin(fieldSet.readString(1));
                     assetDto.setSupportLabel(fieldSet.readString(2));
                     assetDto.setManagementCompany(fieldSet.readString(3));
+                    assetDto.setLabel(fieldSet.readString(4));
+                    assetDto.setSri(fieldSet.readInt(5));
 
-                    for (int i = 4; i < fieldSet.getFieldCount(); i++) {
+                    for (int i = 6; i < fieldSet.getFieldCount(); i++) {
                         map.put(columns.get(i), Float.valueOf(fieldSet.readString(i).replace(',', '.')));
                     }
                     assetDto.setAssetYearsData(map);
