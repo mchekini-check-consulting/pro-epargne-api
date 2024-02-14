@@ -22,6 +22,8 @@ public class Asset {
     private String isin;
     private String supportLabel;
     private String managementCompany;
+    private String label;
+    private Integer sri;
 
     @OneToMany(mappedBy = "asset")
     private List<AssetYear> assetYearsData;
