@@ -18,4 +18,6 @@ public class AssetDto {
     private String supportLabel;
     private String managementCompany;
     private Map<String, Float> assetYearsData;
+    private String label;
+    private Integer sri;
 }
