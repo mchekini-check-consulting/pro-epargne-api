@@ -1,5 +1,6 @@
 package com.checkconsulting.proepargne.service;
 
+import com.checkconsulting.proepargne.aspect.authentication.Authenticated;
 import com.checkconsulting.proepargne.dto.UserDTO;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
@@ -28,17 +29,22 @@ public class CollaboratorService {
     final CollaboratorMapper collaboratorMapper;
     final AccountService accountService;
     final ContractService contractService;
+    private final User user;
 
-    public CollaboratorService(CollaboratorRepository collaboratorRepository, KeycloakUserService keycloakUserService, CollaboratorMapper collaboratorMapper, AccountService accountService, ContractService contractService) {
+    public CollaboratorService(CollaboratorRepository collaboratorRepository, KeycloakUserService keycloakUserService,
+            CollaboratorMapper collaboratorMapper, AccountService accountService, ContractService contractService,
+            User user) {
         this.collaboratorRepository = collaboratorRepository;
         this.keycloakUserService = keycloakUserService;
         this.collaboratorMapper = collaboratorMapper;
         this.accountService = accountService;
         this.contractService = contractService;
-    }
+        this.user = user;
 
+    }
+    @Authenticated(authenticated = true)
     public List<CollaboratorOutDto> getAll() {
-        List<Collaborator> collaborators = collaboratorRepository.findAll();
+        List<Collaborator> collaborators = collaboratorRepository.findAllCompanyAdminCollaborators(user.getKeycloakId());
         return collaborators.stream().map(collaboratorMapper::mapToCollaboratorOutDto).collect(Collectors.toList());
     }
 
