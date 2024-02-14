@@ -102,6 +102,7 @@ public class TransactionService {
 
 
     private Transaction saveTransaction(TransactionDto transactionDto, Account account) {
+        log.info("transaction dto: {}", transactionDto);
         Transaction transaction = transactionRepository.save(calculateCurrentValuesBeforeSaveTransaction(transactionDto, account));
 
         log.info("la transaction pour de l'utilisateur  {} sur le compte {} a ete effectue avec succes ", user.getEmail(),
@@ -120,6 +121,7 @@ public class TransactionService {
         return Transaction.builder()
                 .amount(transactionDto.getAmount())
                 .type(transactionDto.getOperationType())
+                .planType(transactionDto.getPlanType())
                 .comment(transactionDto.getComment())
                 .account(account)
                 .previousAmount(previousOperationAmount)
