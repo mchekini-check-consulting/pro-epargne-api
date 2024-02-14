@@ -1,5 +1,6 @@
 package com.checkconsulting.proepargne.dto.transaction;
 
+import com.checkconsulting.proepargne.enums.PlanType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +18,6 @@ public class TransactionOutDto {
     private String createdAt;
     private String type;
     private String comment;
+    private PlanType planType;
 
 }
