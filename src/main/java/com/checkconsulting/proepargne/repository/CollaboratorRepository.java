@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface CollaboratorRepository extends JpaRepository<Collaborator, Long> {
 
     Optional<Collaborator> findByEmail(String email);
-    @Query(value = "select c from Collaborator c where c.id in ( select a.id from Account a where a.contract = ( select c from Contract c where c.companyAdminId = ?1))")
+    @Query(value = "select c from Collaborator c where c in ( select a.collaborator from Account a where a.contract = ( select c from Contract c where c.companyAdminId = ?1))")
     List<Collaborator> findAllCompanyAdminCollaborators(String adminId);
 }

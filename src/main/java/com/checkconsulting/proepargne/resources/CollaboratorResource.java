@@ -1,5 +1,6 @@
 package com.checkconsulting.proepargne.resources;
 
+import com.checkconsulting.proepargne.aspect.authentication.Authenticated;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorInDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorOutDto;
 import com.checkconsulting.proepargne.dto.collaborator.CollaboratorUpdateDto;
@@ -24,6 +25,7 @@ public class CollaboratorResource {
     }
 
     @GetMapping
+    @Authenticated(authenticated = true)
     public ResponseEntity<List<CollaboratorOutDto>> getAll(){
         return new ResponseEntity<>(collaboratorService.getAll(), HttpStatus.OK);
     }

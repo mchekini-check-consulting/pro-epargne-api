@@ -42,7 +42,7 @@ public class CollaboratorService {
         this.user = user;
 
     }
-    @Authenticated(authenticated = true)
+    
     public List<CollaboratorOutDto> getAll() {
         List<Collaborator> collaborators = collaboratorRepository.findAllCompanyAdminCollaborators(user.getKeycloakId());
         return collaborators.stream().map(collaboratorMapper::mapToCollaboratorOutDto).collect(Collectors.toList());
