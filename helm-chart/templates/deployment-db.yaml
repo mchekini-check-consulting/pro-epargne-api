@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "helm-chart.fullname" . }}-db
+  labels:
+    {{- include "helm-chart.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pro-epargne-db
+      app.kubernetes.io/instance: pro-epargne-api-db
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: helm-chart-1.0.0
+        app.kubernetes.io/name: pro-epargne-db
+        app.kubernetes.io/instance: pro-epargne-api-db
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: default
+      containers:
+        - name: postgres
+          image: "postgres"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: postgres
+          ports:
+            - name: http
+              containerPort: 5432
+              protocol: TCP
