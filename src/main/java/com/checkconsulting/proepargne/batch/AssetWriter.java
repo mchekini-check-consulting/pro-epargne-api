@@ -25,6 +25,9 @@ public class AssetWriter implements ItemWriter<Asset> {
     public void write(Chunk<? extends Asset> chunk) {
         log.info("Job Writer for assets file started with data : {}", chunk.getItems());
 
+        assetYearRepository.deleteAll();
+        assetRepository.deleteAll();
+
         for (Asset asset : chunk.getItems()) {
             Asset createdAsset = assetRepository.saveAndFlush(asset);
             for (AssetYear assetYear : asset.getAssetYearsData()) {

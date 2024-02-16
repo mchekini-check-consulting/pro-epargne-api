@@ -32,6 +32,8 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      enabled: false
 
 oauth2:
   resource-server:
