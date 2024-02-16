@@ -47,3 +47,11 @@ keycloak:
   clientId: pro-epargne-collab
   userName: dlyazid
   password: ${keycloak-collab-password}
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY} # Clé d'accès AWS
+      secret-key: ${AWS_SECRET_KEY} # Clé secrète AWS
+    region:
+      static: eu-west-1 # regeion par defaut pour les operation AWS en Europe
