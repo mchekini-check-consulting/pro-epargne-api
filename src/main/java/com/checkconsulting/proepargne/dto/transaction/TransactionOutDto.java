@@ -1,5 +1,6 @@
 package com.checkconsulting.proepargne.dto.transaction;
 
+import com.checkconsulting.proepargne.dto.contribution.ContributionOutDto;
 import com.checkconsulting.proepargne.enums.PlanType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +20,5 @@ public class TransactionOutDto {
     private String type;
     private String comment;
     private PlanType planType;
-    private Float contributionAmount;
+    private ContributionOutDto contribution;
 }
