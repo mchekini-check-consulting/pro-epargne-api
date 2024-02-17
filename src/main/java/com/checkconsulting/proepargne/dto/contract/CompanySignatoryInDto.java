@@ -14,8 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompanySignatoryInDto {
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z]+",message = "Lastname has to be all characters")
     private String lastName;
     @NotBlank
+    @Pattern(regexp = "[a-zA-Z]+",message = "Firstname has to be all characters")
     private String firstName;
     @Email
     private String email;
