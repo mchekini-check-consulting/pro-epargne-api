@@ -11,4 +11,4 @@ spec:
       name: http
   selector:
       app.kubernetes.io/name: pro-epargne-db
-      app.kubernetes.io/instance: pro-epargne-api-db
+      app.kubernetes.io/instance: pro-epargne-db
