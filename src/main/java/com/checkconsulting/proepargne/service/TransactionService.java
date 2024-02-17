@@ -136,7 +136,7 @@ public class TransactionService {
                 }
             } else if (peeContribution.getRateSeniorityContribution() != null) {
                 // SENIORITY
-                Period p = Period.between(LocalDate.now(), account.getCollaborator().getEntryDate());
+                Period p = Period.between(account.getCollaborator().getEntryDate(), LocalDate.now());
                 amount = (transactionDto.getAmount() * peeContribution.getRateSeniorityContribution()) / 100;
 
                 if (p.getYears() > 5) {
@@ -174,9 +174,9 @@ public class TransactionService {
                         amount = peeContribution.getCeilingIntervalContributionSecond().floatValue();
                     }
 
-                } else if (transactionDto.getAmount() < peeContribution.getIntervalContributionFirst()) {
+                } else if (transactionDto.getAmount() <= peeContribution.getIntervalContributionFirst()) {
 
-                    amount = (transactionDto.getAmount() * peeContribution.getIntervalContributionFirst()) / 100;
+                    amount = (transactionDto.getAmount() * peeContribution.getRateIntervalContributionFirst()) / 100;
                     if (amount > peeContribution.getCeilingIntervalContributionFirst()) {
                         amount = peeContribution.getCeilingIntervalContributionFirst().floatValue();
                     }
@@ -194,7 +194,7 @@ public class TransactionService {
                 }
             } else if (perecoContribution.getRateSeniorityContribution() != null) {
                 // SENIORITY
-                Period p = Period.between(LocalDate.now(), account.getCollaborator().getEntryDate());
+                Period p = Period.between(account.getCollaborator().getEntryDate(), LocalDate.now());
                 amount = (transactionDto.getAmount() * perecoContribution.getRateSeniorityContribution()) / 100;
 
                 if (p.getYears() > 5) {
@@ -234,9 +234,9 @@ public class TransactionService {
                         amount = perecoContribution.getCeilingIntervalContributionSecond().floatValue();
                     }
 
-                } else if (transactionDto.getAmount() < perecoContribution.getIntervalContributionFirst()) {
+                } else if (transactionDto.getAmount() <= perecoContribution.getIntervalContributionFirst()) {
 
-                    amount = (transactionDto.getAmount() * perecoContribution.getIntervalContributionFirst()) / 100;
+                    amount = (transactionDto.getAmount() * perecoContribution.getRateIntervalContributionFirst()) / 100;
                     if (amount > perecoContribution.getCeilingIntervalContributionFirst()) {
                         amount = perecoContribution.getCeilingIntervalContributionFirst().floatValue();
                     }
@@ -256,13 +256,12 @@ public class TransactionService {
 
         if (transactionDto.getOperationType() == DEPOSIT) {
             contribution = checkAndUpdateContributionAmount(transactionDto, account);
-            //we compute the the contribution value just in case of a deposit kind of transaction
+            // we compute the the contribution value just in case of a deposit kind of transaction
             previousOperationAmount = account.getAmount() - transactionDto.getAmount();
         } else if (transactionDto.getOperationType() == WITHDRAWAL) {
             previousOperationAmount = account.getAmount() + transactionDto.getAmount();
         }
-
-        return Transaction.builder()
+        Transaction transaction = Transaction.builder()
                 .amount(transactionDto.getAmount())
                 .type(transactionDto.getOperationType())
                 .planType(transactionDto.getPlanType())
@@ -273,6 +272,10 @@ public class TransactionService {
                 .contribution(contribution)
                 .createdAt(LocalDateTime.now())
                 .build();
+
+        contribution.setTransaction(transaction);
+
+        return transaction;
     }
 
 }

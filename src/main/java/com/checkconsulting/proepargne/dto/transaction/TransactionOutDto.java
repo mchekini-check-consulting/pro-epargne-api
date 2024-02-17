@@ -19,5 +19,5 @@ public class TransactionOutDto {
     private String type;
     private String comment;
     private PlanType planType;
-
+    private Float contributionAmount;
 }

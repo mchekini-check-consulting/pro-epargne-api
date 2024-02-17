@@ -29,7 +29,7 @@ public class TransactionResource {
 
     @PostMapping
     @Authenticated(authenticated = true)
-    public ResponseEntity saveTransaction(@RequestBody TransactionDto transactionDto) throws GlobalException {
+    public ResponseEntity<?> saveTransaction(@RequestBody TransactionDto transactionDto) throws GlobalException {
         Transaction transaction = transactionService.saveTransaction(transactionDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

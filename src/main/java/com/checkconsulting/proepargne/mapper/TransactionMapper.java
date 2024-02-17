@@ -1,11 +1,11 @@
 package com.checkconsulting.proepargne.mapper;
 
-
 import com.checkconsulting.proepargne.dto.transaction.TransactionOutDto;
 import com.checkconsulting.proepargne.enums.OperationType;
 import com.checkconsulting.proepargne.enums.PlanType;
 import com.checkconsulting.proepargne.model.Transaction;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +16,8 @@ import static com.checkconsulting.proepargne.enums.OperationType.*;
 @Mapper(componentModel = "spring")
 
 public interface TransactionMapper {
-
+    
+    @Mapping(target = "contributionAmount", expression = "java(mapContributionAmount(transaction))")
     TransactionOutDto mapToTransactionDto(Transaction transaction);
 
     default String mapTransactionDate(LocalDateTime createdAt) {
@@ -25,6 +26,10 @@ public interface TransactionMapper {
 
     default PlanType mapTransactionPlanType(PlanType plantype) {
         return plantype;
+    }
+
+    default Float mapContributionAmount(Transaction transaction) {
+        return transaction.getContribution().getAmount();
     }
 
     default String mapTransactionType(OperationType operationType) {
