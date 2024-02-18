@@ -47,12 +47,12 @@ public class PerecoContributionDto {
     private Integer rateIntervalContributionThird;
     @PositiveOrZero
     private Integer intervalContributionThird;
-    @NotNull
-    private Boolean perecoInterestAccepted;
-    @NotNull
-    private Boolean perecoVoluntaryDepositAccepted;
-    @NotNull
-    private Boolean perecoProfitSharingAccepted;
-    @NotNull
-    private Boolean perecoTimeSavingAccountAccepted;
+    @Builder.Default
+    private Boolean perecoInterestAccepted = false;
+    @Builder.Default
+    private Boolean perecoVoluntaryDepositAccepted = false;
+    @Builder.Default
+    private Boolean perecoProfitSharingAccepted = false;
+    @Builder.Default
+    private Boolean perecoTimeSavingAccountAccepted = false;
 }
