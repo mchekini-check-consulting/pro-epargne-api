@@ -13,6 +13,7 @@ import com.checkconsulting.proepargne.model.PeeContribution;
 import com.checkconsulting.proepargne.model.PerecoContribution;
 import com.checkconsulting.proepargne.model.Transaction;
 import com.checkconsulting.proepargne.model.User;
+import com.checkconsulting.proepargne.model.Transaction.TransactionBuilder;
 import com.checkconsulting.proepargne.repository.AccountRepository;
 import com.checkconsulting.proepargne.repository.CollaboratorRepository;
 import com.checkconsulting.proepargne.repository.TransactionRepository;
@@ -125,62 +126,112 @@ public class TransactionService {
         Contribution contribution = new Contribution();
         Float amount = null;
 
+        int currentYear = LocalDate.now().getYear();
+        LocalDate startOfYear = LocalDate.of(currentYear, 1, 1);
+        LocalDateTime startOfYearDateTime = startOfYear.atStartOfDay();
+
+        List<Transaction> transactions = transactionRepository.findByAccountAndCreatedAtAfter(account,
+                startOfYearDateTime);
+
+        Float previousContributionsSum = transactions.stream().map((t) -> t.getContribution().getAmount()).reduce(0F,
+                (subtotal, element) -> subtotal + element);
+
         if (transactionDto.getPlanType() == PlanType.PEE) {
 
             PeeContribution peeContribution = contract.getPeeContribution();
             if (peeContribution.getRateSimpleContribution() != null) {
                 // SIMPLE
-                amount = (transactionDto.getAmount() * peeContribution.getRateSimpleContribution()) / 100;
-                if (amount > peeContribution.getCeilingSimpleContribution()) {
-                    amount = peeContribution.getCeilingSimpleContribution().floatValue();
+                // In case we already surpassed the ceiling, no contribution will be created
+                if (previousContributionsSum >= peeContribution.getCeilingSimpleContribution()) {
+                    return null;
+                }
+                amount = (transactionDto.getAmount() *
+                        peeContribution.getRateSimpleContribution()) / 100;
+                Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+
+                if (totalContribution > peeContribution.getCeilingSimpleContribution()) {
+                    amount = adjustNewAmount(previousContributionsSum, amount,
+                            peeContribution.getCeilingSimpleContribution());
                 }
             } else if (peeContribution.getRateSeniorityContribution() != null) {
                 // SENIORITY
-                Period p = Period.between(account.getCollaborator().getEntryDate(), LocalDate.now());
-                amount = (transactionDto.getAmount() * peeContribution.getRateSeniorityContribution()) / 100;
+                Period p = Period.between(account.getCollaborator().getEntryDate(),
+                        LocalDate.now());
+                amount = (transactionDto.getAmount() *
+                        peeContribution.getRateSeniorityContribution()) / 100;
+                Float totalContribution = getTotalContributions(previousContributionsSum, amount);
 
                 if (p.getYears() > 5) {
-                    if (amount > peeContribution.getCeilingSeniorityContributionGreater5()) {
-                        amount = peeContribution.getCeilingSeniorityContributionGreater5().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingSeniorityContributionGreater5()) {
+                        return null;
+                    }
+                    if (totalContribution > peeContribution.getCeilingSeniorityContributionGreater5()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingSeniorityContributionGreater5());
                     }
                 } else if (p.getYears() >= 3) {
-                    if (amount > peeContribution.getCeilingSeniorityContributionBetween3And5()) {
-                        amount = peeContribution.getCeilingSeniorityContributionBetween3And5().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingSeniorityContributionBetween3And5()) {
+                        return null;
+                    }
+                    if (totalContribution > peeContribution.getCeilingSeniorityContributionBetween3And5()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingSeniorityContributionBetween3And5());
                     }
                 } else if (p.getYears() >= 1) {
-                    if (amount > peeContribution.getCeilingSeniorityContributionBetween1And3()) {
-                        amount = peeContribution.getCeilingSeniorityContributionBetween1And3().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingSeniorityContributionBetween1And3()) {
+                        return null;
+                    }
+                    if (totalContribution > peeContribution.getCeilingSeniorityContributionBetween1And3()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingSeniorityContributionBetween1And3());
                     }
                 } else {
-                    if (amount > peeContribution.getCeilingSeniorityContributionLessYear()) {
-                        amount = peeContribution.getCeilingSeniorityContributionLessYear().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingSeniorityContributionLessYear()) {
+                        return null;
+                    }
+                    if (totalContribution > peeContribution.getCeilingSeniorityContributionLessYear()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingSeniorityContributionLessYear());
                     }
                 }
             } else {
                 // INTERVAL;
                 if (transactionDto.getAmount() > peeContribution.getIntervalContributionSecond()
                         && transactionDto.getAmount() < peeContribution.getIntervalContributionThird()) {
-
-                    amount = (transactionDto.getAmount() * peeContribution.getRateIntervalContributionThird()) / 100;
-                    if (amount > peeContribution.getCeilingIntervalContributionThird()) {
-                        amount = peeContribution.getCeilingIntervalContributionThird().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingIntervalContributionThird()) {
+                        return null;
                     }
+                    amount = (transactionDto.getAmount() *
+                            peeContribution.getRateIntervalContributionThird()) / 100;
 
+                    Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+                    if (totalContribution > peeContribution.getCeilingIntervalContributionThird()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingIntervalContributionThird());
+                    }
                 } else if (transactionDto.getAmount() > peeContribution.getIntervalContributionFirst()
                         && transactionDto.getAmount() < peeContribution.getIntervalContributionSecond()) {
-
-                    amount = (transactionDto.getAmount() * peeContribution.getRateIntervalContributionSecond()) / 100;
-                    if (amount > peeContribution.getCeilingIntervalContributionSecond()) {
-                        amount = peeContribution.getCeilingIntervalContributionSecond().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingIntervalContributionSecond()) {
+                        return null;
                     }
-
+                    amount = (transactionDto.getAmount() *
+                            peeContribution.getRateIntervalContributionSecond()) / 100;
+                    Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+                    if (totalContribution > peeContribution.getCeilingIntervalContributionSecond()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingIntervalContributionSecond());
+                    }
                 } else if (transactionDto.getAmount() <= peeContribution.getIntervalContributionFirst()) {
-
-                    amount = (transactionDto.getAmount() * peeContribution.getRateIntervalContributionFirst()) / 100;
-                    if (amount > peeContribution.getCeilingIntervalContributionFirst()) {
-                        amount = peeContribution.getCeilingIntervalContributionFirst().floatValue();
+                    if (previousContributionsSum >= peeContribution.getCeilingIntervalContributionFirst()) {
+                        return null;
                     }
-
+                    amount = (transactionDto.getAmount() *
+                            peeContribution.getRateIntervalContributionFirst()) / 100;
+                    Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+                    if (totalContribution > peeContribution.getCeilingIntervalContributionFirst()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                peeContribution.getCeilingIntervalContributionFirst());
+                    }
                 }
             }
 
@@ -188,30 +239,56 @@ public class TransactionService {
             PerecoContribution perecoContribution = contract.getPerecoContribution();
             if (perecoContribution.getRateSimpleContribution() != null) {
                 // SIMPLE
-                amount = (transactionDto.getAmount() * perecoContribution.getRateSimpleContribution()) / 100;
-                if (amount > perecoContribution.getCeilingSimpleContribution()) {
-                    amount = perecoContribution.getCeilingSimpleContribution().floatValue();
+                if (previousContributionsSum >= perecoContribution.getCeilingSimpleContribution()) {
+                    return null;
+                }
+                amount = (transactionDto.getAmount() *
+                        perecoContribution.getRateSimpleContribution()) / 100;
+                Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+
+                if (totalContribution > perecoContribution.getCeilingSimpleContribution()) {
+                    amount = adjustNewAmount(previousContributionsSum, amount,
+                            perecoContribution.getCeilingSimpleContribution());
                 }
             } else if (perecoContribution.getRateSeniorityContribution() != null) {
                 // SENIORITY
-                Period p = Period.between(account.getCollaborator().getEntryDate(), LocalDate.now());
-                amount = (transactionDto.getAmount() * perecoContribution.getRateSeniorityContribution()) / 100;
+                Period p = Period.between(account.getCollaborator().getEntryDate(),
+                        LocalDate.now());
+                amount = (transactionDto.getAmount() *
+                        perecoContribution.getRateSeniorityContribution()) / 100;
+                Float totalContribution = getTotalContributions(previousContributionsSum, amount);
 
                 if (p.getYears() > 5) {
-                    if (amount > perecoContribution.getCeilingSeniorityContributionGreater5()) {
-                        amount = perecoContribution.getCeilingSeniorityContributionGreater5().floatValue();
+                    if (previousContributionsSum >= perecoContribution.getCeilingSeniorityContributionGreater5()) {
+                        return null;
+                    }
+                    if (totalContribution > perecoContribution.getCeilingSeniorityContributionGreater5()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingSeniorityContributionGreater5());
                     }
                 } else if (p.getYears() >= 3) {
-                    if (amount > perecoContribution.getCeilingSeniorityContributionBetween3And5()) {
-                        amount = perecoContribution.getCeilingSeniorityContributionBetween3And5().floatValue();
+                    if (previousContributionsSum >= perecoContribution.getCeilingSeniorityContributionBetween3And5()) {
+                        return null;
+                    }
+                    if (totalContribution > perecoContribution.getCeilingSeniorityContributionBetween3And5()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingSeniorityContributionBetween3And5());
                     }
                 } else if (p.getYears() >= 1) {
-                    if (amount > perecoContribution.getCeilingSeniorityContributionBetween1And3()) {
-                        amount = perecoContribution.getCeilingSeniorityContributionBetween1And3().floatValue();
+                    if (previousContributionsSum >= perecoContribution.getCeilingSeniorityContributionBetween1And3()) {
+                        return null;
+                    }
+                    if (totalContribution > perecoContribution.getCeilingSeniorityContributionBetween1And3()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingSeniorityContributionBetween1And3());
                     }
                 } else {
-                    if (amount > perecoContribution.getCeilingSeniorityContributionLessYear()) {
-                        amount = perecoContribution.getCeilingSeniorityContributionLessYear().floatValue();
+                    if (previousContributionsSum >= perecoContribution.getCeilingSeniorityContributionLessYear()) {
+                        return null;
+                    }
+                    if (totalContribution > perecoContribution.getCeilingSeniorityContributionLessYear()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingSeniorityContributionLessYear());
                     }
                 }
 
@@ -219,26 +296,41 @@ public class TransactionService {
                 // INTERVAL;
                 if (transactionDto.getAmount() > perecoContribution.getIntervalContributionSecond()
                         && transactionDto.getAmount() < perecoContribution.getIntervalContributionThird()) {
-
-                    amount = (transactionDto.getAmount() * perecoContribution.getRateIntervalContributionThird()) / 100;
-                    if (amount > perecoContribution.getCeilingIntervalContributionThird()) {
-                        amount = perecoContribution.getCeilingIntervalContributionThird().floatValue();
+                    if (previousContributionsSum >= perecoContribution.getCeilingIntervalContributionThird()) {
+                        return null;
+                    }
+                    amount = (transactionDto.getAmount() *
+                            perecoContribution.getRateIntervalContributionThird()) / 100;
+                    Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+                    if (totalContribution > perecoContribution.getCeilingIntervalContributionThird()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingIntervalContributionThird());
                     }
 
                 } else if (transactionDto.getAmount() > perecoContribution.getIntervalContributionFirst()
                         && transactionDto.getAmount() < perecoContribution.getIntervalContributionSecond()) {
-
-                    amount = (transactionDto.getAmount() * perecoContribution.getRateIntervalContributionSecond())
+                    if (previousContributionsSum >= perecoContribution.getCeilingIntervalContributionSecond()) {
+                        return null;
+                    }
+                    amount = (transactionDto.getAmount() *
+                            perecoContribution.getRateIntervalContributionSecond())
                             / 100;
-                    if (amount > perecoContribution.getCeilingIntervalContributionSecond()) {
-                        amount = perecoContribution.getCeilingIntervalContributionSecond().floatValue();
+                    Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+                    if (totalContribution > perecoContribution.getCeilingIntervalContributionSecond()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingIntervalContributionSecond());
                     }
 
                 } else if (transactionDto.getAmount() <= perecoContribution.getIntervalContributionFirst()) {
-
-                    amount = (transactionDto.getAmount() * perecoContribution.getRateIntervalContributionFirst()) / 100;
-                    if (amount > perecoContribution.getCeilingIntervalContributionFirst()) {
-                        amount = perecoContribution.getCeilingIntervalContributionFirst().floatValue();
+                    if (previousContributionsSum >= perecoContribution.getCeilingIntervalContributionFirst()) {
+                        return null;
+                    }
+                    amount = (transactionDto.getAmount() *
+                            perecoContribution.getRateIntervalContributionFirst()) / 100;
+                    Float totalContribution = getTotalContributions(previousContributionsSum, amount);
+                    if (totalContribution > perecoContribution.getCeilingIntervalContributionFirst()) {
+                        amount = adjustNewAmount(previousContributionsSum, amount,
+                                perecoContribution.getCeilingIntervalContributionFirst());
                     }
 
                 }
@@ -250,18 +342,30 @@ public class TransactionService {
         return contribution;
     }
 
+    private Float getTotalContributions(Float previousContributionsAmount, Float newAmount) {
+        return previousContributionsAmount + newAmount;
+    }
+
+    private Float adjustNewAmount(Float previousContributionsAmount, Float newAmount, Integer ceiling) {
+        if (previousContributionsAmount + newAmount > ceiling.floatValue()) {
+            return ceiling.floatValue() - previousContributionsAmount;
+        }
+        return newAmount;
+    }
+
     private Transaction calculateCurrentValuesBeforeSaveTransaction(TransactionDto transactionDto, Account account) {
         float previousOperationAmount = 0;
         Contribution contribution = null;
 
         if (transactionDto.getOperationType() == DEPOSIT) {
             contribution = checkAndUpdateContributionAmount(transactionDto, account);
-            // we compute the the contribution value just in case of a deposit kind of transaction
+            // we compute the the contribution value just in case of a deposit kind of
+            // transaction
             previousOperationAmount = account.getAmount() - transactionDto.getAmount();
         } else if (transactionDto.getOperationType() == WITHDRAWAL) {
             previousOperationAmount = account.getAmount() + transactionDto.getAmount();
         }
-        Transaction transaction = Transaction.builder()
+        TransactionBuilder transactionBuilder = Transaction.builder()
                 .amount(transactionDto.getAmount())
                 .type(transactionDto.getOperationType())
                 .planType(transactionDto.getPlanType())
@@ -269,10 +373,13 @@ public class TransactionService {
                 .account(account)
                 .previousAmount(previousOperationAmount)
                 .nextAmount(account.getAmount())
-                .contribution(contribution)
-                .createdAt(LocalDateTime.now())
-                .build();
+                .createdAt(LocalDateTime.now());
 
+        if (contribution != null) {
+            transactionBuilder.contribution(contribution);
+        }
+
+        Transaction transaction = transactionBuilder.build();
         contribution.setTransaction(transaction);
 
         return transaction;
