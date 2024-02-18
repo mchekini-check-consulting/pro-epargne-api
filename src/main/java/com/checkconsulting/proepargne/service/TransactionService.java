@@ -378,9 +378,11 @@ public class TransactionService {
         if (contribution != null) {
             transactionBuilder.contribution(contribution);
         }
-
         Transaction transaction = transactionBuilder.build();
-        contribution.setTransaction(transaction);
+        
+        if (contribution != null) {
+            contribution.setTransaction(transaction);
+        }
 
         return transaction;
     }
