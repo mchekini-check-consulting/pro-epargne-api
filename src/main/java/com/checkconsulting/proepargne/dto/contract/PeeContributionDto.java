@@ -47,10 +47,10 @@ public class PeeContributionDto {
     private Integer rateIntervalContributionThird;
     @PositiveOrZero
     private Integer intervalContributionThird;
-    @NotNull
-    private Boolean peeInterestAccepted;
-    @NotNull
-    private Boolean peeVoluntaryDepositAccepted;
-    @NotNull
-    private Boolean peeProfitSharingAccepted;
+    @Builder.Default
+    private Boolean peeInterestAccepted = false;
+    @Builder.Default
+    private Boolean peeVoluntaryDepositAccepted = false;
+    @Builder.Default
+    private Boolean peeProfitSharingAccepted = false;
 }
