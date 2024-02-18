@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.checkconsulting.proepargne.enums.ManagementMode.DELEGATED;
@@ -27,14 +28,14 @@ import static com.checkconsulting.proepargne.enums.RiskLevel.PRUDENT;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final ContractService contractService;
     private final AccountMapper accountMapper;
     private final User user;
     private final CollaboratorRepository collaboratorRepository;
 
-    public AccountService(AccountRepository accountRepository, ContractService contractService,
-                          AccountMapper accountMapper, User user, CollaboratorRepository collaboratorRepository) {
-        this.contractService = contractService;
+    public AccountService(AccountRepository accountRepository,
+                          AccountMapper accountMapper,
+                          User user,
+                          CollaboratorRepository collaboratorRepository) {
         this.accountMapper = accountMapper;
         this.user = user;
         this.collaboratorRepository = collaboratorRepository;
@@ -45,15 +46,14 @@ public class AccountService {
     public List<AccountOutDto> getCollaboratorAccounts() throws GlobalException {
         Collaborator collaborator = this.collaboratorRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new GlobalException("L'utilisateur connecte n'est pas enregistre en base de données", HttpStatus.NOT_FOUND));
-        return collaborator.getAccountList().stream().map(accountMapper::mapToAccountOutDto)
+        return collaborator.getAccountList().stream()
+                .map(accountMapper::mapToAccountOutDto)
+                .sorted(Comparator.comparing(AccountOutDto::getType))
                 .toList();
     }
 
-    public List<Account> createCollaboratorAccounts(Collaborator collaborator) throws GlobalException {
+    public void createCollaboratorAccounts(Collaborator collaborator, Contract contract) {
         ArrayList<Account> accounts = new ArrayList<>();
-
-        Contract contract = contractService.getContractByAdminId();
-        log.info("Get contract ");
 
         if (contract.isPeeEnabled()) {
             Account peeAccount = Account.builder()
@@ -81,7 +81,7 @@ public class AccountService {
 
 
         log.info("Saving new Collaborator Accounts to database");
-        return accountRepository.saveAll(accounts);
+        accountRepository.saveAll(accounts);
     }
 
 

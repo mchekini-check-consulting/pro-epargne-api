@@ -52,6 +52,9 @@ public class CollaboratorService {
     public CollaboratorOutDto createCollaborator(CollaboratorInDto collaboratorInDto) throws GlobalException,EntityExistsException{
         log.info("Start adding new Collaborator {}", collaboratorInDto);
 
+        log.info("Get contract ");
+        Contract contract = contractService.getContractByAdminId();
+
         Optional<Collaborator> existedCollaborator = collaboratorRepository.findByEmail(collaboratorInDto.getEmail());
 
         if (existedCollaborator.isPresent()) throw new EntityExistsException("Employe existe deja");
@@ -81,7 +84,7 @@ public class CollaboratorService {
         log.info("Saving new Collaborator to database and flushing changes");
         collaboratorRepository.saveAndFlush(collaborator);
 
-        accountService.createCollaboratorAccounts(collaborator);
+        accountService.createCollaboratorAccounts(collaborator,contract);
 
         return collaboratorMapper.mapToCollaboratorOutDto(collaboratorRepository.save(collaborator));
     }

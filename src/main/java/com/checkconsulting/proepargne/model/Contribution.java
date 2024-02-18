@@ -1,5 +1,7 @@
 package com.checkconsulting.proepargne.model;
 
+import com.checkconsulting.proepargne.enums.ContributionStatus;
+import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,7 +28,8 @@ public class Contribution {
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
-
     private Float amount;
 
+    @Enumerated(EnumType.STRING)
+    private ContributionStatus status;
 }

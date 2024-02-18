@@ -1,5 +1,6 @@
 package com.checkconsulting.proepargne.repository;
 
+import com.checkconsulting.proepargne.enums.PlanType;
 import com.checkconsulting.proepargne.model.Account;
 import com.checkconsulting.proepargne.model.Transaction;
 import org.springframework.data.domain.Page;
@@ -18,4 +19,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     Page<Transaction> findAllByAccountIn(List<Account> accounts, Pageable pageable, String filter);
 
     List<Transaction> findByAccountAndCreatedAtAfter(Account account, LocalDateTime startOfYearDate);
+
+    @Query("SELECT t FROM Transaction t WHERE (:planType is null or t.planType = :planType or :planType = '')")
+    Page<Transaction> findAllByPlanType(Pageable pageable, PlanType planType);
+
 }
