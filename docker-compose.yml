@@ -1,10 +1,33 @@
 version: '3'
 services:
   pro-epargne-api:
-    image: mchekini/pro-epargne-api:1.0
     container_name: pro-epargne-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=int
+      - SPRING_CLOUD_VAULT_TOKEN=${VAULT_TOKEN}
+  pro-epargne-db:
+    image: postgres
+    container_name: pro-epargne-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+  pgweb:
+    container_name: pro-epargne-pg-web
+    restart: always
+    image: sosedoff/pgweb
+    ports:
+      - "8090:8081"
+
+
+volumes:
+  pg:
+    driver: local
 
 networks:
   default:

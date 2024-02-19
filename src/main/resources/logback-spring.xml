@@ -1,0 +1,40 @@
+<configuration>
+
+
+    <property name="HOME_LOG" value="logs/pro-epargne-api.log"/>
+    <springProperty name="APPLICATION_NAME" source="app.name" scope="context" />
+    <springProperty name="ENV" source="spring.profiles.active" scope="context" />
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} - ${APPLICATION_NAME} - ${ENV} - %highlight(%-5level)  - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/pro-epargne-api.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} - ${APPLICATION_NAME} - ${ENV} - %-4level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE-ROLLING" />
+    </root>
+
+
+
+</configuration>

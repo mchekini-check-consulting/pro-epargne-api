@@ -1,0 +1,41 @@
+package com.checkconsulting.proepargne.batch;
+
+import com.checkconsulting.proepargne.model.Asset;
+import com.checkconsulting.proepargne.model.AssetYear;
+import com.checkconsulting.proepargne.repository.AssetRepository;
+import com.checkconsulting.proepargne.repository.AssetYearRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.item.Chunk;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.stereotype.Component;
+
+@Component
+@Slf4j
+public class AssetWriter implements ItemWriter<Asset> {
+
+    final AssetRepository assetRepository;
+    final AssetYearRepository assetYearRepository;
+
+    public AssetWriter(AssetRepository assetRepository, AssetYearRepository assetYearRepository) {
+        this.assetRepository = assetRepository;
+        this.assetYearRepository = assetYearRepository;
+    }
+
+    @Override
+    public void write(Chunk<? extends Asset> chunk) {
+        log.info("Job Writer for assets file started with data : {}", chunk.getItems());
+
+        assetYearRepository.deleteAll();
+        assetRepository.deleteAll();
+
+        for (Asset asset : chunk.getItems()) {
+            Asset createdAsset = assetRepository.saveAndFlush(asset);
+            for (AssetYear assetYear : asset.getAssetYearsData()) {
+                assetYear.setAsset(createdAsset);
+                assetYearRepository.save(assetYear);
+            }
+        }
+    }
+
+
+}

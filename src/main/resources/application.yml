@@ -1,3 +1,57 @@
 app:
-  name: pro-epargne
-  version: 2.0.0
+  name: pro_epargne
+  version: 1.0.0
+
+
+spring:
+  config:
+    import: vault://
+  cloud:
+    vault:
+      uri: https://vault.check-consulting.net
+      kv:
+        enabled: true
+        backend: kv
+        application-name: pro_epargne
+        default-context: pro_epargne
+  datasource:
+    url: jdbc:postgresql://pro-epargne-db:5432/postgres
+    username: postgres
+    password: ${db-password}
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+
+oauth2:
+  resource-server:
+    jwt:
+      issuer-uri-collab: https://keycloak.check-consulting.net/auth/realms/pro-epargne-collab
+      issuer-uri-admin: https://keycloak.check-consulting.net/auth/realms/pro-epargne-admin
+
+keycloak:
+  realm: pro-epargne-collab
+  serverUrl: https://keycloak.check-consulting.net/auth
+  clientId: pro-epargne-collab
+  userName: dlyazid
+  password: ${keycloak-collab-password}
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY} # Clé d'accès AWS
+      secret-key: ${AWS_SECRET_KEY} # Clé secrète AWS
+    region:
+      static: eu-west-1 # regeion par defaut pour les operation AWS en Europe
