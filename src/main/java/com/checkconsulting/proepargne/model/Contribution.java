@@ -30,6 +30,7 @@ public class Contribution {
 
     private Float amount;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private ContributionStatus status;
+    private ContributionStatus status = ContributionStatus.PENDING;
 }
