@@ -2,6 +2,7 @@ package com.checkconsulting.proepargne.service;
 
 import com.checkconsulting.proepargne.dto.transaction.TransactionDto;
 import com.checkconsulting.proepargne.dto.transaction.TransactionOutDto;
+import com.checkconsulting.proepargne.enums.ContributionStatus;
 import com.checkconsulting.proepargne.enums.PlanType;
 import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.mapper.TransactionMapper;
@@ -339,6 +340,7 @@ public class TransactionService {
         }
 
         contribution.setAmount(amount);
+        contribution.setStatus(ContributionStatus.PENDING);
         return contribution;
     }
 
