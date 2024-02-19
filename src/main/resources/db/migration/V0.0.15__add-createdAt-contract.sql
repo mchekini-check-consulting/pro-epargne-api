@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS contract
+    ADD COLUMN created_at TIMESTAMP;

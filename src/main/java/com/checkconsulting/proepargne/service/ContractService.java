@@ -8,12 +8,16 @@ import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.mapper.ContractMapper;
 import com.checkconsulting.proepargne.model.Contract;
 import com.checkconsulting.proepargne.model.User;
-import com.checkconsulting.proepargne.repository.ContractRepository;
+import com.checkconsulting.proepargne.repository.*;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
+@Slf4j
 public class ContractService {
 
     private final ContractRepository contractRepository;
@@ -43,6 +47,7 @@ public class ContractService {
 
         Contract contract = contractMapper.mapToContract(contractInDto);
         contract.setCompanyAdminId(user.getKeycloakId());
+        contract.setCreatedAt(LocalDateTime.now());
         contractRepository.saveAndFlush(contract);
 
 
