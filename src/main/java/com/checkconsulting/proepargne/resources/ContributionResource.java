@@ -3,6 +3,7 @@ package com.checkconsulting.proepargne.resources;
 import com.checkconsulting.proepargne.aspect.authentication.Authenticated;
 import com.checkconsulting.proepargne.dto.contribution.ContributionOutDto;
 import com.checkconsulting.proepargne.dto.transaction.TransactionOutDto;
+import com.checkconsulting.proepargne.enums.ContributionStatus;
 import com.checkconsulting.proepargne.enums.PlanType;
 import com.checkconsulting.proepargne.exception.GlobalException;
 import com.checkconsulting.proepargne.service.ContributionService;
@@ -24,9 +25,10 @@ public class ContributionResource {
     public ResponseEntity<Page<TransactionOutDto>> findAllContribution(
             @RequestParam(defaultValue = "0", required = false) int page,
             @RequestParam(defaultValue = "10", required = false) int size,
-            @RequestParam(defaultValue = "", required = false) PlanType planType
+            @RequestParam(defaultValue = "", required = false) PlanType planType,
+            @RequestParam(defaultValue = "", required = false) ContributionStatus status
     ){
-        return ResponseEntity.ok().body(contributionService.findAllContribution(page,size,planType));
+        return ResponseEntity.ok().body(contributionService.findAllContribution(page, size, planType, status));
     }
 
     @PatchMapping(path = "{id}")
