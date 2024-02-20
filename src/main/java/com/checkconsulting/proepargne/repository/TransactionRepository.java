@@ -1,5 +1,6 @@
 package com.checkconsulting.proepargne.repository;
 
+import com.checkconsulting.proepargne.enums.ContributionStatus;
 import com.checkconsulting.proepargne.enums.PlanType;
 import com.checkconsulting.proepargne.model.Account;
 import com.checkconsulting.proepargne.model.Transaction;
@@ -20,7 +21,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findByAccountAndCreatedAtAfter(Account account, LocalDateTime startOfYearDate);
 
-    @Query("SELECT t FROM Transaction t WHERE (:planType is null or t.planType = :planType or :planType = '')")
-    Page<Transaction> findAllByPlanType(Pageable pageable, PlanType planType);
+    @Query("SELECT t FROM Transaction t WHERE (:planType IS NULL OR t.planType = :planType OR t.planType = '' OR :planType = '' ) AND (t.contribution.status = :status OR :status = '' OR :status IS NULL)")
+    Page<Transaction> findAllByPlanType(Pageable pageable, PlanType planType, ContributionStatus status);
 
 }

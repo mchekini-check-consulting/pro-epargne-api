@@ -33,9 +33,9 @@ public class ContributionService {
         this.contributionMapper = contributionMapper;
     }
 
-    public Page<TransactionOutDto> findAllContribution(int page, int size, PlanType planType){
+    public Page<TransactionOutDto> findAllContribution(int page, int size, PlanType planType, ContributionStatus status){
         Pageable pageable = PageRequest.of(page,size);
-        return transactionRepository.findAllByPlanType(pageable,planType).map(transactionMapper::mapToTransactionDto);
+        return transactionRepository.findAllByPlanType(pageable,planType,status).map(transactionMapper::mapToTransactionDto);
     }
 
     @Transactional
